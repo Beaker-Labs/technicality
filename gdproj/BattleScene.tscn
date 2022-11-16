@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://chkues3p42jcq"]
 
 [ext_resource type="Script" path="res://Car-truck1.gd" id="2_wvt0f"]
-[ext_resource type="Texture2D" uid="uid://bwor5yqtfehxc" path="res://car-truck2.png" id="4_kchje"]
-[ext_resource type="Texture2D" uid="uid://bunmee5ub6vyi" path="res://car-truck3.png" id="5_wdc2i"]
-[ext_resource type="Texture2D" uid="uid://crlwnkpgeffen" path="res://car-truck4.png" id="6_xsa26"]
-[ext_resource type="Texture2D" uid="uid://ddccvcyr8l30h" path="res://car-truck5.png" id="7_oc6mg"]
-[ext_resource type="Texture2D" uid="uid://dtju0uttldbaw" path="res://Dirt 10 .png" id="8_a6um8"]
+[ext_resource type="Texture2D" uid="uid://cq26wfhgw6jt8" path="res://car-truck2.png" id="4_kchje"]
+[ext_resource type="Texture2D" uid="uid://iwwgrst8w4tb" path="res://car-truck3.png" id="5_wdc2i"]
+[ext_resource type="Texture2D" uid="uid://bpjhkhauk7uwp" path="res://car-truck4.png" id="6_xsa26"]
+[ext_resource type="Texture2D" uid="uid://7xosk3o2ahnd" path="res://car-truck5.png" id="7_oc6mg"]
+[ext_resource type="Texture2D" uid="uid://ltvy3c47b02o" path="res://Dirt 10 .png" id="8_a6um8"]
 
 [node name="Node2D" type="Node2D"]
 

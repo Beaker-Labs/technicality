@@ -23,4 +23,4 @@ func _process(delta):
 func _physics_process(delta):
 	#position += accel * delta * speed
 	linear_velocity += accel * delta * speed
-	
+	rotation = atan2(linear_velocity[1] , linear_velocity[0]) + PI/2
