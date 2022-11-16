@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://chkues3p42jcq"]
+
+[ext_resource type="Script" path="res://Car-truck1.gd" id="2_wvt0f"]
+[ext_resource type="Texture2D" uid="uid://bwor5yqtfehxc" path="res://car-truck2.png" id="4_kchje"]
+[ext_resource type="Texture2D" uid="uid://bunmee5ub6vyi" path="res://car-truck3.png" id="5_wdc2i"]
+[ext_resource type="Texture2D" uid="uid://crlwnkpgeffen" path="res://car-truck4.png" id="6_xsa26"]
+[ext_resource type="Texture2D" uid="uid://ddccvcyr8l30h" path="res://car-truck5.png" id="7_oc6mg"]
+[ext_resource type="Texture2D" uid="uid://dtju0uttldbaw" path="res://Dirt 10 .png" id="8_a6um8"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Car-truck1" type="Sprite2D" parent="."]
+position = Vector2(566, 200)
+texture = ExtResource("4_kchje")
+
+[node name="Car-truck5" type="Sprite2D" parent="."]
+position = Vector2(739, 484)
+texture = ExtResource("7_oc6mg")
+
+[node name="Dirt10" type="Sprite2D" parent="."]
+position = Vector2(583, 327)
+z_index = -100
+texture = ExtResource("8_a6um8")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(340, 423)
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource("2_wvt0f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+polygon = PackedVector2Array(-16, -6, -13, -37, 13, -37, 16, -6, 16, 38, -16, 38)
+
+[node name="Car-truck4" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("6_xsa26")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(551, 315)
+gravity_scale = 0.0
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D2"]
+polygon = PackedVector2Array(-16, -6, -13, -37, 13, -37, 16, -6, 16, 38, -16, 38)
+
+[node name="Car-truck3" type="Sprite2D" parent="RigidBody2D2"]
+texture = ExtResource("5_wdc2i")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="MenuButton" type="MenuButton" parent="."]
+offset_left = 345.0
+offset_top = 237.0
+offset_right = 448.0
+offset_bottom = 268.0
+text = "PLAYER WIN"
+
+[node name="MenuButton2" type="MenuButton" parent="."]
+offset_left = 696.0
+offset_top = 238.0
+offset_right = 799.0
+offset_bottom = 269.0
+text = "CPU WIN"
