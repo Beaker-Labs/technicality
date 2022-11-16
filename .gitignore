@@ -6,6 +6,7 @@ export_presets.cfg
 debug.log
 **/*.import
 gdproj/.godot
+gdproj/.idea
 
 # Imported translations (automatically generated from CSV files)
 *.translation
