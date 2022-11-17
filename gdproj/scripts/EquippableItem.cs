@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Item : Resource
+public class EquippableItem : Resource
 {
     [Export] public string Name = "";
     [Export] public string Description = "";
