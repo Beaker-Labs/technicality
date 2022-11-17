@@ -1,3 +1,13 @@
-[gd_resource type="Resource" format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/TournamentSeries.cs" type="Script" id=1]
 
 [resource]
+script = ExtResource( 1 )
+Name = "Test Tussle"
+Size = 3
+WeightLimit = 60
+TeamSizeMax = 0
+TeamSizeMin = 0
+EntryFee = 50
+Prize = 500

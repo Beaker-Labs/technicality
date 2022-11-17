@@ -40,7 +40,8 @@ func _process(delta):
 			accel += 1
 
 func _physics_process(delta):
-	rotation += angular_speed * direction * delta
-	var velocity = Vector2.UP.rotated(rotation) * accel
-	position += velocity * delta
+	#rotation += angular_speed * direction * delta
+	angular_velocity = direction
+	linear_velocity = Vector2.UP.rotated(rotation) * accel
+	#position += velocity * delta
 	
