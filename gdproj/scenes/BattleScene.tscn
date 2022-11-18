@@ -21,3 +21,12 @@ polygon = PoolVector2Array( 131, 370, 134, 354, 156, 354, 159, 370, 159, 423, 13
 [node name="Car-truck2" type="Sprite" parent="RigidBody2D/CollisionPolygon2D"]
 position = Vector2( 145, 388 )
 texture = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 306.0
+margin_top = 276.0
+margin_right = 364.0
+margin_bottom = 296.0
+text = "ro ta te"
+
+[connection signal="pressed" from="Button" to="Controlled" method="get_rotated_idiot"]

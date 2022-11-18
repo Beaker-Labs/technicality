@@ -45,3 +45,7 @@ func _physics_process(delta):
 	linear_velocity = Vector2.UP.rotated(rotation) * accel
 	#position += velocity * delta
 	
+func get_rotated_idiot():
+    angular_velocity += 10
+    print("idiot got rotated")
+	
