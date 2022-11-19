@@ -6,18 +6,23 @@ using System;
 // - 
 public class Loader : Node
 {
-    [Export] private Transform _doorLeft;
-    [Export] private Transform _doorRight;
+    private Node _favoriteChild;
+    private const string DoorsPath = "res://scenes/LoadingDoors.tscn";
+    private const string MainMenuPath = "res://scenes/MainMenu.tscn";
+    private Node _activeScene;
+    private AnimationPlayer _loadingDoors;
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+        _loadingDoors = GetChild<AnimationPlayer>(0);
+        _activeScene = GetChild(1);
     }
 
     public override void _Process(float delta)
     {
         
     }
-    
+
+
 }

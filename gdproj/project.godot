@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Technicality"
-run/main_scene="res://scenes/Controlled.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]

@@ -9,5 +9,4 @@ public class Vehicle : Reference
     public List<WeaponItem> Weapons;
     public List<ArmorItem> Armor;
     //public List<ModItem> Mods;
-
 }

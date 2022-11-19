@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Controlled.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/car-truck2.png" type="Texture" id=2]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="Controlled" parent="." instance=ExtResource( 1 )]
+position = Vector2( 494, 347 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+position = Vector2( 348, -182 )
+polygon = PoolVector2Array( 131, 370, 134, 354, 156, 354, 159, 370, 159, 423, 131, 423 )
+
+[node name="Car-truck2" type="Sprite" parent="RigidBody2D/CollisionPolygon2D"]
+position = Vector2( 145, 388 )
+texture = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 306.0
+margin_top = 276.0
+margin_right = 364.0
+margin_bottom = 296.0
+text = "ro ta te"
+
+[connection signal="pressed" from="Button" to="Controlled" method="get_rotated_idiot"]
