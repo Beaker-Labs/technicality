@@ -207,6 +207,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.xarbrough.commentcomponent": {
+      "version": "file:C:/Users/dgame/Documents/Unity Projects/Packages/comment-component-1.1.0",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
