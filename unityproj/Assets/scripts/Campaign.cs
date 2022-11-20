@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Campaign : ScriptableObject
+public class Campaign
 {
     public int Month;
     public int Cash;
