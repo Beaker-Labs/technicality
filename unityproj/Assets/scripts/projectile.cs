@@ -11,6 +11,7 @@ public class projectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.velocity = (transform.up * speed);
     }
 
     // Update is called once per frame
@@ -21,6 +22,6 @@ public class projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = (transform.up * speed);
+        
     }
 }

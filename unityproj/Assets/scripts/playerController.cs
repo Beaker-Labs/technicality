@@ -29,17 +29,24 @@ public class playerController : MonoBehaviour
         {
             Controls();
         }
-        if(health <= 0)
-        {
-            sprite.color = new Color(0.5f, 0.5f, 0.5f, 1);
-        }
-
     }
 
     void FixedUpdate()
     {
         rb.rotation -= rotSpeed * hor;
         rb.velocity = (transform.up * speed * ver);
+        
+        //TODO: New vehicle traction model
+        // Calculate desired velocity (vector2) based on input and facing
+        
+        // Apply drag orthogonally to facing to reduce sideslip
+        
+        // Apply force in desired move direction to accelerate towards it
+        
+        if(health <= 0)
+        {
+            sprite.color = new Color(0.5f, 0.5f, 0.5f, 1);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
