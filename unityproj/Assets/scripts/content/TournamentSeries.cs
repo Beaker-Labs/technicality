@@ -55,4 +55,48 @@ public class TournamentSeries : ScriptableObject
         }
         return "";
     }
+
+    /* Returns description of tournament, formatted as follows: (excluding bracketed comments)
+     *
+     * Weight Limit:  150 per team  (or per vehicle)
+     * Max Team Size: 5             (line omitted if no limit)
+     * Min Team Size: 2             (line omitted if no limit)
+     * Team Size:     2             (replaces Max and Min if both are enabled and the same value)
+     * Entry Fee:    $20            (if value is zero, line is replaced with "No Entry Fee")
+     * Prize:        $100
+     * 
+     * Description Text Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor  
+     *
+     */
+    public string GetDescription()
+    {
+        string ret;
+        
+        ret = $"Weight Limit: {WeightLimit} {(WeightLimitPerVehicle ? "Per Vehicle" : "Per Team")}\n";
+        
+        if (TeamSizeMax == TeamSizeMin && TeamSizeMin > 0)
+        {
+            ret += $"Req Vehicles: {TeamSizeMax}\n";
+        }
+        else
+        {
+            if (TeamSizeMax > 0)
+            {
+                ret += $"Max Team Size: {TeamSizeMax}\n";
+            }
+
+            if (TeamSizeMin > 0)
+            {
+                ret += $"Min Team Size: {TeamSizeMin}\n";
+            }
+        }
+
+        ret += EntryFee > 0 ? $"Entry Fee: ${EntryFee}\n" : "No Entry Fee\n";
+        ret += $"Prize: ${Prize}\n";
+        
+        ret += "\n";
+        ret += Description;
+
+        return ret;
+    }
 }

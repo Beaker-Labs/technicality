@@ -12,7 +12,7 @@ public class TransitionButton : MonoBehaviour
         FindObjectOfType<LoadingDoors>().CloseDoors(FinishTransition);
     }
 
-    public void FinishTransition()
+    private void FinishTransition()
     {
         GetComponentInParent<Canvas>().gameObject.SetActive(false);
         destinationCanvas.SetActive(true);

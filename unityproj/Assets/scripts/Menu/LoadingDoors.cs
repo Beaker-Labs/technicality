@@ -12,18 +12,24 @@ public class LoadingDoors : MonoBehaviour
     private int _toLoad;
     private Action _onDoorsClosed;
 
+    void Awake()
+    {
+        GameInfo.LoadingDoors = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    public void CloseDoors(Action ondoorsClosed)
+    public void CloseDoors(Action onDoorsClosed)
     {
-        _onDoorsClosed = ondoorsClosed;
+        _onDoorsClosed = onDoorsClosed;
         animator.SetTrigger("Close");
     }
 
+    // This is called by the door closing animator once the doors have closed.
     public void DoorsClosed()
     {
         _onDoorsClosed();

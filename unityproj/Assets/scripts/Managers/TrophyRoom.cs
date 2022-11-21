@@ -6,6 +6,7 @@ public class TrophyRoom : MonoBehaviour
 {
     void Awake()
     {
+        GameInfo.TrophyRoom = this;
         gameObject.SetActive(false);
     }
 

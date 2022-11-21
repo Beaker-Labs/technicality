@@ -7,6 +7,7 @@ public class Garage : MonoBehaviour
 {
     void Awake()
     {
+        GameInfo.Garage = this;
         gameObject.SetActive(false);
     }
 
