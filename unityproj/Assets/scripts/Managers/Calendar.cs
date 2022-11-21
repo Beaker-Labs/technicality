@@ -9,21 +9,29 @@ using UnityEngine.UI;
 // where the player can check or go to upcoming tournaments
 public class Calendar : MonoBehaviour
 {
-    public TextMeshProUGUI dateText;
-    public TextMeshProUGUI selectedTourneyName;
-    public TextMeshProUGUI selectedTourneyDescription;
-    public List<Button> selectorButtons;
+    [Header("Object Links")]
+    [SerializeField] private TextMeshProUGUI dateText;
+    [SerializeField] private TextMeshProUGUI selectedTourneyName;
+    [SerializeField] private TextMeshProUGUI selectedTourneyDescription;
+    [SerializeField] private List<Button> selectorButtons;
+    [SerializeField] private TournamentManager tournamentManager;
+    [SerializeField] private LoadingDoors loadingDoors;
+
+    
     private List<TournamentSeries> _tournaments;
     private TournamentSeries _selectedTournament;
-
+    
+    
     void Awake()
     {
+        GameInfo.Calendar = this;
         gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
     
     // OnEnable is called every time the gameobject is enabled
@@ -70,8 +78,21 @@ public class Calendar : MonoBehaviour
 
     public void SelectTournament(int index)
     {
-        selectedTourneyName.text = _tournaments[index].GetMonthName(GameInfo.Campaign.Month);
-        selectedTourneyDescription.text = _tournaments[index].Description;
-        return;
+        _selectedTournament = _tournaments[index];
+        selectedTourneyName.text = _selectedTournament.GetMonthName(GameInfo.Campaign.Month);
+        selectedTourneyDescription.text = _selectedTournament.GetDescription();
+    }
+
+    public void StartTournament()
+    {
+        loadingDoors.CloseDoors(LoadTournamentScene);
+    }
+
+    private void LoadTournamentScene()
+    {
+        GameInfo.Campaign.Cash -= _selectedTournament.EntryFee;
+        GetComponent<Canvas>().gameObject.SetActive(false);
+        tournamentManager.Template = _selectedTournament;
+        tournamentManager.gameObject.SetActive(true);
     }
 }

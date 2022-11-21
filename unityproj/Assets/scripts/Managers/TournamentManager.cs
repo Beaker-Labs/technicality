@@ -5,11 +5,16 @@ using UnityEngine;
 public class TournamentManager : MonoBehaviour
 {
     public string Name;
-    public Match Match;
+    private Match _match;
     public TournamentSeries Template;
+    
+    [SerializeField] private TournamentManager tournamentManager;
+    [SerializeField] private LoadingDoors loadingDoors;
+    
     
     void Awake()
     {
+        GameInfo.TournamentManager = this;
         gameObject.SetActive(false);
     }
 
@@ -18,10 +23,30 @@ public class TournamentManager : MonoBehaviour
     {
     }
 
+    // OnEnable is called when the object is enabled
+    // for this script that happens whenever it's screen is loaded
+    void OnEnable()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void WinTournament()
+    {
+        GameInfo.CloseLoadingDoors(LoadHQScene);
+        GameInfo.Campaign.Cash += Template.Prize;
+    }
+
+    private void LoadHQScene()
+    {
+        GameInfo.Campaign.Month++;
+        GetComponent<Canvas>().gameObject.SetActive(false);
+        GameInfo.Headquarters.gameObject.SetActive(true);
     }
 }
 

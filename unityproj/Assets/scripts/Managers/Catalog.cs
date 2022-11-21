@@ -6,6 +6,7 @@ public class Catalog : MonoBehaviour
 {
     void Awake()
     {
+        GameInfo.Catalog = this;
         gameObject.SetActive(false);
     }
 

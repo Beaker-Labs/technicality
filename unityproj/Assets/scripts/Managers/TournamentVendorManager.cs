@@ -6,6 +6,7 @@ public class TournamentVendorManager : MonoBehaviour
 {
     void Awake()
     {
+        GameInfo.TournamentVendorManager = this;
         gameObject.SetActive(false);
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Johning Monthly
   Description: Come John every month at the monthly Johning meet.
-  Stages: 
+  Stages: 020000000200000002000000
   WeightLimit: 150
   WeightLimitPerVehicle: 0
   TeamSizeMax: 0
