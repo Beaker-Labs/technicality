@@ -24,7 +24,7 @@ public static class GameInfo
     static GameInfo()
     {
         Campaign = new Campaign();
-        TournamentSeries = Resources.LoadAll<TournamentSeries>("tournaments");
+        TournamentSeries = Resources.LoadAll<TournamentSeries>("Tournaments");
     }
 
     public static void CloseLoadingDoors(Action onDoorsClosed)

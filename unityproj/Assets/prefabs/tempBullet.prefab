@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7461626765447191109}
   - component: {fileID: 323952595906879240}
   m_Layer: 0
-  m_Name: tempBullet
+  m_Name: TempBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
