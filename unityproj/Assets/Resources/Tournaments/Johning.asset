@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ac8124d3dcc67499438b64b02c2ae4, type: 3}
+  m_Name: Johning
+  m_EditorClassIdentifier: 
+  Name: Johning Monthly
+  Description: Come John every month at the monthly Johning meet.
+  Stages: 020000000200000002000000
+  WeightLimit: 150
+  WeightLimitPerVehicle: 0
+  TeamSizeMax: 0
+  TeamSizeMin: 0
+  EntryFee: 20
+  Prize: 100
+  Entries:
+  - Name: '{0} Johning, {1}'
+    Month: 1
+  - Name: '{0} Johning, {1}'
+    Month: 2
+  - Name: '{0} Johning, {1}'
+    Month: 3
+  - Name: '{0} Johning, {1}'
+    Month: 4
+  - Name: '{0} Johning, {1}'
+    Month: 5
+  - Name: '{0} Johning, {1}'
+    Month: 6
+  - Name: '{0} Johning, {1}'
+    Month: 7
+  - Name: '{0} Johning, {1}'
+    Month: 8
+  - Name: '{0} Johning, {1}'
+    Month: 9
+  - Name: '{0} Johning, {1}'
+    Month: 10
+  - Name: '{0} Johning, {1}'
+    Month: 11
+  - Name: '{0} Johning, {1}'
+    Month: 12
