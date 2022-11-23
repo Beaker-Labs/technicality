@@ -9,7 +9,7 @@ public class TransitionButton : MonoBehaviour
     
     public void Transition()
     {
-        FindObjectOfType<LoadingDoors>().CloseDoors(FinishTransition);
+        GameInfo.CloseLoadingDoors(FinishTransition);
     }
 
     private void FinishTransition()

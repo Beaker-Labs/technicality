@@ -8,10 +8,10 @@ public class NewGameButton : MonoBehaviour
     
     public void PlayGame()
     {
-        FindObjectOfType<LoadingDoors>().CloseDoors(LoadHQ);
+        GameInfo.CloseLoadingDoors(LoadHQ);
     }
 
-    public void LoadHQ()
+    private void LoadHQ()
     {
         GetComponentInParent<Canvas>().gameObject.SetActive(false);
         destinationCanvas.SetActive(true);

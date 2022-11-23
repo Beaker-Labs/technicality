@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class turretRotatePoint : MonoBehaviour
+public class TurretRotatePoint : MonoBehaviour
 {
     public Camera mainCam;
     public float TurnRate;

@@ -9,10 +9,10 @@ public class doortest : MonoBehaviour
     public void TestDoors()
     {
         Debug.Log("gonna test the doors");
-        FindObjectOfType<LoadingDoors>().CloseDoors(FinishDoorTest);
+        GameInfo.CloseLoadingDoors(FinishDoorTest);
     }
 
-    public void FinishDoorTest()
+    private void FinishDoorTest()
     {
         Debug.Log("doors have closed, freezing");
         Thread.Sleep(1000);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gun : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     //bullet properties
     public GameObject bullet;
@@ -30,7 +30,7 @@ public class gun : MonoBehaviour
 
     void shootBullet()
     {
-        var bulletClone = Instantiate(bullet, transform.position, transform.rotation).GetComponent<projectile>();
+        var bulletClone = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Projectile>();
         bulletClone.speed = projectileSpeed;
         bulletClone.damage = projectileDamage;
     }

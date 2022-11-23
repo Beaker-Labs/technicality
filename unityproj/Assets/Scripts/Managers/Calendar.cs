@@ -14,8 +14,6 @@ public class Calendar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI selectedTourneyName;
     [SerializeField] private TextMeshProUGUI selectedTourneyDescription;
     [SerializeField] private List<Button> selectorButtons;
-    [SerializeField] private TournamentManager tournamentManager;
-    [SerializeField] private LoadingDoors loadingDoors;
 
     
     private List<TournamentSeries> _tournaments;
@@ -85,14 +83,14 @@ public class Calendar : MonoBehaviour
 
     public void StartTournament()
     {
-        loadingDoors.CloseDoors(LoadTournamentScene);
+        GameInfo.CloseLoadingDoors(LoadTournamentScene);
     }
 
     private void LoadTournamentScene()
     {
         GameInfo.Campaign.Cash -= _selectedTournament.EntryFee;
         GetComponent<Canvas>().gameObject.SetActive(false);
-        tournamentManager.Template = _selectedTournament;
-        tournamentManager.gameObject.SetActive(true);
+        GameInfo.TournamentManager.Template = _selectedTournament;
+        GameInfo.TournamentManager.gameObject.SetActive(true);
     }
 }

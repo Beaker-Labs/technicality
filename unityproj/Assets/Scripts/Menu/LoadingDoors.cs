@@ -23,6 +23,7 @@ public class LoadingDoors : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // Call this to initiate the door closing animation, and pass a function to be executed when the doors close.
     public void CloseDoors(Action onDoorsClosed)
     {
         _onDoorsClosed = onDoorsClosed;
@@ -30,6 +31,7 @@ public class LoadingDoors : MonoBehaviour
     }
 
     // This is called by the door closing animator once the doors have closed.
+    // Please don't call this
     public void DoorsClosed()
     {
         _onDoorsClosed();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
 
@@ -54,8 +54,8 @@ public class playerController : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if(collision.gameObject.name == "tempBullet(Clone)")
         {
-            Debug.Log(collision.gameObject.GetComponent<projectile>().speed);
-            health -= collision.gameObject.GetComponent<projectile>().damage;
+            Debug.Log(collision.gameObject.GetComponent<Projectile>().speed);
+            health -= collision.gameObject.GetComponent<Projectile>().damage;
             Destroy(collision.gameObject);
         }
     }
