@@ -1,5 +1,5 @@
 {
-    "name": "Controls",
+    "name": "InputMaster",
     "maps": [
         {
             "name": "Vehicle",
@@ -54,6 +54,15 @@
                     "name": "Right",
                     "type": "Button",
                     "id": "6cc943d2-3e02-4a79-8953-fe9af84217f7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "3072adfd-0a2d-45eb-840d-346f9907b175",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -124,6 +133,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "123e392c-2f82-40f7-8138-f68c4bf05df1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6283ee5b-b820-4908-b531-314481c29f77",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

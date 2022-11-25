@@ -13,6 +13,9 @@ public static class GameInfo
     public static DateTime StartDate = new DateTime(2035, 1, 1);
     public static TournamentSeries[] TournamentSeries;
     
+    // The Omnibullet
+    public static GameObject Bullet;
+
     // Manager links
     // Each field is populated by it's respective class in Awake(), values will be null prior to this.
     public static LoadingDoors LoadingDoors;
@@ -28,7 +31,8 @@ public static class GameInfo
     static GameInfo()
     {
         Campaign = new Campaign();
-        TournamentSeries = Resources.LoadAll<TournamentSeries>("tournaments");
+        TournamentSeries = Resources.LoadAll<TournamentSeries>("Tournaments");
+        Bullet = Resources.Load<GameObject>("Bullet");
     }
 
     // Call this to initiate the door closing animation, and pass a function to be executed when the doors are closed.

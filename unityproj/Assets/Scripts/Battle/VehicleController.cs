@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class VehicleController : MonoBehaviour
     private int _hitPoints = 420; // Current HP, Max is drawn from Template
     
     private Rigidbody2D _rigidbody2D;
+    private List<WeaponMount> _weapons;
     private SpriteRenderer _sprite;
     private InputMaster _input;
     
@@ -31,6 +33,7 @@ public class VehicleController : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _input = new InputMaster();
         _input.Vehicle.Enable();
+        _weapons = GetComponentsInChildren<WeaponMount>().ToList();
     }
 
     // Update is called once per frame
@@ -83,9 +86,13 @@ public class VehicleController : MonoBehaviour
         // Apply acceleration
         _rigidbody2D.velocity += velDelta * (Vector2)transform.up;
 
-
-
-        // Apply force in desired move direction to accelerate towards it
+        if (_input.Vehicle.Fire.ReadValue<float>() > 0.5)
+        {
+            foreach (WeaponMount weapon in _weapons)
+            {
+                weapon.Fire();
+            }
+        }
     }
 
     public void TakeDamage(int Damage)

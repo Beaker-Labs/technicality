@@ -80,6 +80,15 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""3072adfd-0a2d-45eb-840d-346f9907b175"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,6 +157,28 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""123e392c-2f82-40f7-8138-f68c4bf05df1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6283ee5b-b820-4908-b531-314481c29f77"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -162,6 +193,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Vehicle_TurnRight = m_Vehicle.FindAction("TurnRight", throwIfNotFound: true);
         m_Vehicle_Left = m_Vehicle.FindAction("Left", throwIfNotFound: true);
         m_Vehicle_Right = m_Vehicle.FindAction("Right", throwIfNotFound: true);
+        m_Vehicle_Fire = m_Vehicle.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +259,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Vehicle_TurnRight;
     private readonly InputAction m_Vehicle_Left;
     private readonly InputAction m_Vehicle_Right;
+    private readonly InputAction m_Vehicle_Fire;
     public struct VehicleActions
     {
         private @InputMaster m_Wrapper;
@@ -237,6 +270,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @TurnRight => m_Wrapper.m_Vehicle_TurnRight;
         public InputAction @Left => m_Wrapper.m_Vehicle_Left;
         public InputAction @Right => m_Wrapper.m_Vehicle_Right;
+        public InputAction @Fire => m_Wrapper.m_Vehicle_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Vehicle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +298,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Right.started -= m_Wrapper.m_VehicleActionsCallbackInterface.OnRight;
                 @Right.performed -= m_Wrapper.m_VehicleActionsCallbackInterface.OnRight;
                 @Right.canceled -= m_Wrapper.m_VehicleActionsCallbackInterface.OnRight;
+                @Fire.started -= m_Wrapper.m_VehicleActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_VehicleActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_VehicleActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_VehicleActionsCallbackInterface = instance;
             if (instance != null)
@@ -286,6 +323,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Right.started += instance.OnRight;
                 @Right.performed += instance.OnRight;
                 @Right.canceled += instance.OnRight;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -298,5 +338,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnTurnRight(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
