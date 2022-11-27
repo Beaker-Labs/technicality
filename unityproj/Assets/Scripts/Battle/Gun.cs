@@ -12,21 +12,21 @@ public class Gun : MonoBehaviour
     public float projectileSpeed;
     public int projectileDamage;
 
-    private GameObject bullet;
-    private float lastTimeFired;
+    private GameObject _bullet;
+    private float _lastTimeFired;
 
     void Start()
     {
         _fireDelay = 60 / FireRate;
-        bullet = GameInfo.Bullet;
+        _bullet = GameInfo.Bullet;
     }
 
     public void Fire()
     {
-        if (Time.time > lastTimeFired + _fireDelay)
+        if (Time.time > _lastTimeFired + _fireDelay)
         {
-            lastTimeFired = Time.time;
-            Projectile bulletClone = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Projectile>();
+            _lastTimeFired = Time.time;
+            Projectile bulletClone = Instantiate(_bullet, transform.position, transform.rotation).GetComponent<Projectile>();
             bulletClone.speed = projectileSpeed;
             bulletClone.damage = projectileDamage;
         }

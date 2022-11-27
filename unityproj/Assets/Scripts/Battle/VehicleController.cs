@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class VehicleController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class VehicleController : MonoBehaviour
     private List<WeaponMount> _weapons;
     private SpriteRenderer _sprite;
     private InputMaster _input;
+    private Camera _mainCam;
     
     void Start()
     {
@@ -34,6 +36,7 @@ public class VehicleController : MonoBehaviour
         _input = new InputMaster();
         _input.Vehicle.Enable();
         _weapons = GetComponentsInChildren<WeaponMount>().ToList();
+        _mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -51,6 +54,20 @@ public class VehicleController : MonoBehaviour
         {
             hor = _input.Vehicle.Left.ReadValue<float>() - _input.Vehicle.Right.ReadValue<float>();
             ver = _input.Vehicle.Forward.ReadValue<float>() - _input.Vehicle.Backward.ReadValue<float>();
+
+            bool fire = _input.Vehicle.Fire.ReadValue<float>() > 0.5;
+            foreach (WeaponMount weapon in _weapons)
+            {
+                weapon.SetTarget(_mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
+                if (fire) weapon.Fire();
+            }
+        }
+        else
+        {
+            foreach (WeaponMount weapon in _weapons)
+            {
+                weapon.UnsetTarget();
+            }            
         }
 
         // ---- ROTATION ----
@@ -86,13 +103,7 @@ public class VehicleController : MonoBehaviour
         // Apply acceleration
         _rigidbody2D.velocity += velDelta * (Vector2)transform.up;
 
-        if (_input.Vehicle.Fire.ReadValue<float>() > 0.5)
-        {
-            foreach (WeaponMount weapon in _weapons)
-            {
-                weapon.Fire();
-            }
-        }
+
     }
 
     public void TakeDamage(int Damage)
