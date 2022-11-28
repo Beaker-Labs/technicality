@@ -102,8 +102,6 @@ public class VehicleController : MonoBehaviour
         
         // Apply acceleration
         _rigidbody2D.velocity += velDelta * (Vector2)transform.up;
-
-
     }
 
     public void TakeDamage(int Damage)

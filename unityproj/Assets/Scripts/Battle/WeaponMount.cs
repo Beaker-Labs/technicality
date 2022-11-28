@@ -17,6 +17,8 @@ public class WeaponMount : MonoBehaviour
     private Camera _mainCam;
     private Vector2 _target;
     private bool _active;
+    private bool _firing;
+    private bool _hasWeapon;
     private float _currentAngle; // offset is center
     private Gun _weapon;
 
@@ -26,40 +28,41 @@ public class WeaponMount : MonoBehaviour
         _weapon = GetComponentInChildren<Gun>();
         _mainCam = Camera.main;
         _currentAngle = offset;
+        _hasWeapon = _weapon != null;
     }
     
     
 
     void FixedUpdate()
     {
-        float desiredAngle = offset + -transform.parent.rotation.eulerAngles.z;
+        float desiredAngle = -offset + -transform.parent.rotation.eulerAngles.z;
         
         if (_active)
         {
             Vector2 targetDir = _target - (Vector2)transform.position;
-            float targetAngle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg;
-            float targetAngleOriginal = targetAngle; // This is only for debug. remove when done.
+            float targetAngle = -(Mathf.Atan2(targetDir.x, targetDir.y) * Mathf.Rad2Deg);
+            // float targetAngleOriginal = targetAngle; // This is only for debug. remove when done.
 
-            if (targetAngle > 180 + offset + transform.parent.rotation.eulerAngles.z)
+            if (targetAngle > 180 + -offset + transform.parent.rotation.eulerAngles.z)
             {
                 targetAngle -= 360;
             }
             
-            if (targetAngle < -180 + offset + transform.parent.rotation.eulerAngles.z)
+            if (targetAngle < -180 + -offset + transform.parent.rotation.eulerAngles.z)
             {
                 targetAngle += 360;
             }
             
-            desiredAngle += targetAngle - offset;
+            desiredAngle += targetAngle + offset;
 
-            if (targetAngle == targetAngleOriginal)
-            {
-                Debug.Log($"targetAngle: {targetAngle}, desiredAngle: {desiredAngle}");
-            }
-            else
-            {
-                Debug.Log($"targetAngle: {targetAngle}, original targetAngle: {targetAngleOriginal}, desiredAngle: {desiredAngle}");
-            }
+            // if (targetAngle == targetAngleOriginal)
+            // {
+            //     Debug.Log($"targetAngle: {targetAngle}, desiredAngle: {desiredAngle}");
+            // }
+            // else
+            // {
+            //     Debug.Log($"targetAngle: {targetAngle}, original targetAngle: {targetAngleOriginal}, desiredAngle: {desiredAngle}");
+            // }
         }
         
 
@@ -71,12 +74,24 @@ public class WeaponMount : MonoBehaviour
         else
         {
             _currentAngle = Mathf.MoveTowards(_currentAngle, desiredAngle, turnRate * Time.deltaTime);
-            _currentAngle = Mathf.Clamp(_currentAngle, rotationLimitMin + offset, rotationLimitMax + offset);
+            _currentAngle = Mathf.Clamp(_currentAngle, rotationLimitMin + -offset, rotationLimitMax + -offset);
         }
 
-        transform.localRotation = Quaternion.AngleAxis(_currentAngle - 90, Vector3.forward);
+        transform.localRotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward);
+        
+        // Do the shooty if appropriate
+        if (_firing && _weapon != null)
+        {
+            _weapon.Fire();
+        }
+        _firing = false;
     }
 
+    
+    // Set the point to target.
+    // Is called by VehicleController to tell the WeaponMount what point to aim at.
+    // Just in case, this class has been given an explicit script execution order behind that of vehicleController,
+    // So that if the target is set the turret will begin to respond on the same frame.
     public void SetTarget(Vector2 targetPoint)
     {
         _active = true;
@@ -88,8 +103,12 @@ public class WeaponMount : MonoBehaviour
         _active = false;
     }
 
+    // Fire the attached weapon
+    // Is called by VehicleController every tick that the fire button is held
+    // Since this class's FixedUpdate always executes after VehicleController's, if we called weapon.Fire() here, it would fire before turning.
+    // Instead, we must set the _firing flag to true and then fire after turning in fixedUpdate()
     public void Fire()
     {
-        _weapon.Fire();
+        _firing = true;
     }
 }
