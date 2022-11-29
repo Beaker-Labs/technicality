@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TournamentManager : MonoBehaviour
 {
-    public string Name;
-    private Match _match;
-    public TournamentSeries Template;
-    
-    [SerializeField] private TournamentManager tournamentManager;
-    [SerializeField] private LoadingDoors loadingDoors;
-    
-    
+    [Header("Public Things")] private string _name;
+    private Match _bracket; // This is the root match of the bracket
+    private Match _nextMatch; // This is the next/current match to play
+    private TournamentSeries _template;
+
+    [Header("Object Links")] 
+    public TextMeshProUGUI NextFightTitleText;
+    public TextMeshProUGUI NextFightButtonText;
+
+
     void Awake()
     {
         GameInfo.TournamentManager = this;
@@ -25,9 +28,23 @@ public class TournamentManager : MonoBehaviour
 
     // OnEnable is called when the object is enabled
     // for this script that happens whenever it's screen is loaded
+    // that can happen either while starting a tournament or finishing a match within the tournament
     void OnEnable()
     {
-        
+
+    }
+
+    // Generate a populated bracket based on Template
+    public void SetupTournament(TournamentSeries template, string eventName)
+    {
+        _name = eventName;
+        _template = template;
+        _bracket = new Match(template.Stages);
+        _nextMatch = _bracket.GetNextMatch();
+        _nextMatch.Entrants[0].Winner.PlayerControlled = true;
+        _nextMatch.Entrants[0].Winner.Name = "Player";
+        Debug.Log(_bracket.DebugString());
+        Debug.Log(_nextMatch.GetMatchName());
     }
 
     // Update is called once per frame
@@ -36,48 +53,34 @@ public class TournamentManager : MonoBehaviour
         
     }
 
+    public void StartNextMatch()
+    {
+        GameInfo.CloseLoadingDoors(LoadBattleScene);
+    }
+
+    public void SkipNextMatch()
+    {
+        
+    }
+
+    // Placeholder method to escape the tournament screen
     public void WinTournament()
     {
         GameInfo.CloseLoadingDoors(LoadHQScene);
-        GameInfo.Campaign.Cash += Template.Prize;
+        GameInfo.Campaign.Cash += _template.Prize;
     }
 
     private void LoadHQScene()
     {
         GameInfo.Campaign.Month++;
-        GetComponent<Canvas>().gameObject.SetActive(false);
+        gameObject.SetActive(false);
         GameInfo.Headquarters.gameObject.SetActive(true);
     }
-}
 
-// This is a recursive representation of the tournament bracket.
-// Each Match object represents one match within the wider bracket.
-// To start the tournament, matches are created with no entrants and a winner already set.
-// Do not assume all Matches have entrants!
-public class Match
-{
-    public Team Winner = null;
-    public List<Match> Entrants = null;
-    
-    public Match GetNextMatch()
+    private void LoadBattleScene()
     {
-        // get mad if used improperly
-        if (Winner != null)
-        {
-            throw new Exception("GetNextMatch() was called on a bracket that already had a defined winner");
-        }
-        
-        // Recurse if any of the entrant selecting matches haven't been decided yet.
-        foreach (Match i in Entrants)
-        {
-            if (i.Winner != null)
-            {
-                return i.GetNextMatch();
-            }
-        }
-
-        // Else this must be the next match, so return this.        
-        return this;
+        gameObject.SetActive(false);
+        GameInfo.BattleManager.gameObject.SetActive(true);
+        GameInfo.BattleManager.StartMatch(_bracket.GetNextMatch(), _template.Arena);
     }
 }
-

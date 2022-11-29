@@ -46,3 +46,4 @@ MonoBehaviour:
     Month: 11
   - Name: '{0} Johning, {1}'
     Month: 12
+  Arena: {fileID: 501503427385272462, guid: 1cf5ec6c81290d04d8e3cf79b61c4069, type: 3}

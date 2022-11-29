@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // One big singleton for various purposes. Primarily stores game state and references to managers
 public static class GameInfo
@@ -15,6 +16,7 @@ public static class GameInfo
     
     // The Omnibullet
     public static GameObject Bullet;
+    public static GameObject Vehicle;
 
     // Manager links
     // Each field is populated by it's respective class in Awake(), values will be null prior to this.
@@ -27,17 +29,30 @@ public static class GameInfo
     public static TrophyRoom TrophyRoom;
     public static TournamentManager TournamentManager;
     public static TournamentVendorManager TournamentVendorManager;
+    public static BattleManager BattleManager;
+
+    private static TextAsset _names;
+    private static string[] _namesList;
 
     static GameInfo()
     {
         Campaign = new Campaign();
         TournamentSeries = Resources.LoadAll<TournamentSeries>("Tournaments");
         Bullet = Resources.Load<GameObject>("Bullet");
+        Vehicle = Resources.Load<GameObject>("Vehicle");
+        _names = Resources.Load<TextAsset>("names");
+        _namesList = _names.text.Split("\n");
+        
     }
 
     // Call this to initiate the door closing animation, and pass a function to be executed when the doors are closed.
     public static void CloseLoadingDoors(Action onDoorsClosed)
     {
         LoadingDoors.CloseDoors(onDoorsClosed);
+    }
+
+    public static string GetName()
+    {
+        return _namesList[Random.Range(0, _namesList.Length)];
     }
 }

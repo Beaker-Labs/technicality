@@ -17,6 +17,7 @@ public class TournamentSeries : ScriptableObject
     public int EntryFee;
     public int Prize;
     public List<SeriesEntry> Entries = new List<SeriesEntry>();
+    public GameObject Arena; // Prefab link to the arena to be used for this tournament.
     
     [Serializable] public class SeriesEntry
     {
