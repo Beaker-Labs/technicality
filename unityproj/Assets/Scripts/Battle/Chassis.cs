@@ -1,17 +1,26 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class VehicleController : MonoBehaviour
+// This is the root controller script for vehicles. it also contains the base stats in a chassis prefab
+// Formerly named VehicleController.cs
+public class Chassis : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    public Vehicle Template;
-
+    [Header("Chassis Base stats")]
+    public string ChassisName = "";
+    [TextArea] public string Description = "";
+    public int BaseWeight;
+    public int WeightLimit;
+    public int HitPoints;
+    //public int Armor;
+    public bool Amphibious; // Amphibious units can move in water
+    public bool Hover; // hover units are immune to all terrain effects
+    public MoveTypes MoveType;
+    
+    
+    [Header("Placeholder Stat overrides")]
     // Serialization of these is a placeholder, they will eventually be determined by chassis and equipment
     [SerializeField] private float _rotSpeed = 20;
     [SerializeField] private float _rotAccel = 5;
@@ -20,19 +29,30 @@ public class VehicleController : MonoBehaviour
     // Currently friction accel, should be changed to coefficient so force can be calculated based on vehicle weight.
     [SerializeField] private float _friction = 3; 
 
-    public bool isPlayerControlled;
-    private int _hitPoints = 420; // Current HP, Max is drawn from Template
+    [HideInInspector]public bool isPlayerControlled;
     
+    private int _hitPoints; // Current HP, Max is drawn from Template
+    private bool _alive = true;
+
+
+    private Vehicle _loadout;
     private Rigidbody2D _rigidbody2D;
     private List<WeaponMount> _weapons;
-    private SpriteRenderer _sprite;
     private InputMaster _input;
     private Camera _mainCam;
     
+    public enum MoveTypes
+    {
+        Tank,
+        FrontSteer,
+        RearSteer,
+        Omni
+    }
+    
     void Start()
     {
+        _hitPoints = HitPoints;
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _sprite = GetComponent<SpriteRenderer>();
         _input = new InputMaster();
         _input.Vehicle.Enable();
         _weapons = GetComponentsInChildren<WeaponMount>().ToList();
@@ -109,7 +129,22 @@ public class VehicleController : MonoBehaviour
         _hitPoints -= Damage;
         if(_hitPoints <= 0)
         {
-            _sprite.color = new Color(0.5f, 0.5f, 0.5f, 1);
+            Debug.Log($"{name} has died :(");
+            _alive = false;
+            foreach (SpriteRenderer sprite in GetComponentsInChildren<SpriteRenderer>())
+            {
+                sprite.color = new Color(0.5f, 0.5f, 0.5f, 1);
+            }
         }
+    }
+
+    public bool IsAlive()
+    {
+        return _alive;
+    }
+
+    public int GetHitPoints()
+    {
+        return _hitPoints;
     }
 }

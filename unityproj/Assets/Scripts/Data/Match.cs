@@ -11,21 +11,25 @@ public class Match
 {
     public Team Winner = null;
     public List<Match> Entrants = new List<Match>();
+    public int Depth;
     
     // This constructor takes a list of stages, like how the shape of a tournament is defined in TournamentSeries.Stages
-    public Match(List<int> stages)
+    public Match(List<int> stages, int depth = 0)
     {
+        Depth = depth;
+
         if (stages.Count == 0)
         {
             Winner = new Team();
             Winner.Name = GameInfo.GetName();
+            Winner.Vehicles.Add(new Vehicle());
         }
         else
         {
             List<int> stagesSubOne = stages.GetRange(1, stages.Count - 1);
             for (int i = 0; i < stages[0]; i++)
             {
-                Entrants.Add(new Match(stagesSubOne));
+                Entrants.Add(new Match(stagesSubOne, depth+1));
             }
         }
     }
@@ -53,26 +57,32 @@ public class Match
     }
 
     // Traverses the tree to find the deepest match with full entrants
-    public Match GetNextMatch()
+    public Match GetNextMatch(int depth = 0)
     {
         // get mad if used improperly
         if (Winner != null)
         {
             throw new Exception("GetNextMatch() was called on a Match that already had a defined winner");
         }
-        
-        // Recurse if any of the entrant selecting matches haven't been decided yet.
-        foreach (Match i in Entrants)
+
+        // if any of the entrant selecting matches haven't been decided yet,
+        // Recursively search for the deepest match
+        Match deepestMatch = this;
+        for (int i = 0; i < Entrants.Count; i++)
         {
-            if (i.Winner == null)
+            if (Entrants[i].Winner == null)
             {
-                return i.GetNextMatch();
+                Match m = Entrants[i].GetNextMatch();
+                if (m.Depth > deepestMatch.Depth)
+                {
+                    deepestMatch = m;
+                }
             }
         }
 
-        // Else this must be the next match, so return this.        
-        return this;
+        return deepestMatch;
     }
+    
 
     public string GetMatchName()
     {
@@ -100,10 +110,10 @@ public class Match
             return Winner.Name;
         }
 
-        string ret = "(";
-        for (int i = 0; i < Entrants.Count; i++)
+        string ret = "(" + Entrants[0].DebugString();
+        for (int i = 1; i < Entrants.Count; i++)
         {
-            ret += Entrants[i].DebugString() + ", ";
+            ret += ", " + Entrants[i].DebugString();
         }
         ret += ")";
         return ret;

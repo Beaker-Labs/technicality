@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TournamentManager : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class TournamentManager : MonoBehaviour
     private TournamentSeries _template;
 
     [Header("Object Links")] 
-    public TextMeshProUGUI NextFightTitleText;
-    public TextMeshProUGUI NextFightButtonText;
+    public TextMeshProUGUI NextMatchTitleText;
+    public Button NextMatchButton;
+    public TextMeshProUGUI NextMatchButtonText;
+
 
 
     void Awake()
@@ -43,8 +46,10 @@ public class TournamentManager : MonoBehaviour
         _nextMatch = _bracket.GetNextMatch();
         _nextMatch.Entrants[0].Winner.PlayerControlled = true;
         _nextMatch.Entrants[0].Winner.Name = "Player";
-        Debug.Log(_bracket.DebugString());
-        Debug.Log(_nextMatch.GetMatchName());
+        Debug.Log($"Generated bracket as follows: {_bracket.DebugString()}\nNext match is:{_nextMatch.GetMatchName()}");
+
+        NextMatchTitleText.text = _nextMatch.GetMatchName() + "\n" + _bracket.DebugString();
+        NextMatchButton.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -56,6 +61,25 @@ public class TournamentManager : MonoBehaviour
     public void StartNextMatch()
     {
         GameInfo.CloseLoadingDoors(LoadBattleScene);
+    }
+
+    // is called by battlemanager when a match finishes
+    public void MatchWon(int winnerIndex)
+    {
+        Debug.Log($"MatchWon({winnerIndex})");
+        _nextMatch.Winner = _nextMatch.Entrants[winnerIndex].Winner;
+        if (_nextMatch == _bracket)
+        {
+            Debug.Log("Tournament won by" + _nextMatch.Winner);
+            NextMatchTitleText.text = _bracket.Winner.Name + " Won!";
+            NextMatchButton.gameObject.SetActive(false);
+            return;
+        }
+        string winnername = _nextMatch.Winner.Name;
+        _nextMatch = _bracket.GetNextMatch();
+        Debug.Log($"Match won by {winnername}, Next match is {_nextMatch.GetMatchName()}\nState of the bracket: {_bracket.DebugString()}");
+        
+        NextMatchTitleText.text = _nextMatch.GetMatchName() + "\n" + _bracket.DebugString();
     }
 
     public void SkipNextMatch()
@@ -81,6 +105,6 @@ public class TournamentManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         GameInfo.BattleManager.gameObject.SetActive(true);
-        GameInfo.BattleManager.StartMatch(_bracket.GetNextMatch(), _template.Arena);
+        GameInfo.BattleManager.StartMatch(_nextMatch, _template.Arena);
     }
 }

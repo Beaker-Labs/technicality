@@ -9,7 +9,6 @@ public class LoadingDoors : MonoBehaviour
 {
     public Animator animator;
     private bool _closing;
-    private int _toLoad;
     private Action _onDoorsClosed;
 
     void Awake()
@@ -26,6 +25,7 @@ public class LoadingDoors : MonoBehaviour
     // Call this to initiate the door closing animation, and pass a function to be executed when the doors close.
     public void CloseDoors(Action onDoorsClosed)
     {
+        _closing = true;
         _onDoorsClosed = onDoorsClosed;
         animator.SetTrigger("Close");
     }
@@ -34,7 +34,14 @@ public class LoadingDoors : MonoBehaviour
     // Please don't call this
     public void DoorsClosed()
     {
+        _closing = false;
         _onDoorsClosed();
         animator.SetTrigger("Open");
+    }
+    
+    // returns true while the doors closing animation is playing
+    public bool AreDoorsClosing()
+    {
+        return _closing;
     }
 }

@@ -14,11 +14,13 @@ public class Gun : MonoBehaviour
 
     private GameObject _bullet;
     private float _lastTimeFired;
+    private Rigidbody2D _rigidbody;
 
     void Start()
     {
         _fireDelay = 60 / FireRate;
         _bullet = GameInfo.Bullet;
+        _rigidbody = GetComponentInParent<Rigidbody2D>();
     }
 
     public void Fire()
@@ -26,9 +28,10 @@ public class Gun : MonoBehaviour
         if (Time.time > _lastTimeFired + _fireDelay)
         {
             _lastTimeFired = Time.time;
-            Projectile bulletClone = Instantiate(_bullet, transform.position, transform.rotation).GetComponent<Projectile>();
+            Projectile bulletClone = Instantiate(_bullet, transform.position, transform.rotation, GameInfo.GetBattleRoot()).GetComponent<Projectile>();
             bulletClone.speed = projectileSpeed;
             bulletClone.damage = projectileDamage;
+            bulletClone.origin = _rigidbody;
         }
     }
 }

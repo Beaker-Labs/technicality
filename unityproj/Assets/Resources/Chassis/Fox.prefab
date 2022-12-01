@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireRate: 90
-  projectileSpeed: 100
-  projectileDamage: 5
+  projectileSpeed: 1000
+  projectileDamage: 100
 --- !u!1 &9202436825395432027
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,12 +283,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809448566752b9045a24431ab008f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotSpeed: 160
-  _rotAccel: 320
-  _maxSpeed: 100
-  _accel: 100
-  _friction: 300
-  isPlayerControlled: 1
+  ChassisName: Fox
+  Description: 
+  BaseWeight: 120
+  WeightLimit: 260
+  HitPoints: 100
+  Amphibious: 0
+  Hover: 0
+  MoveType: 0
+  _rotSpeed: 100
+  _rotAccel: 400
+  _maxSpeed: 50
+  _accel: 40
+  _friction: 50
+  isPlayerControlled: 0
 --- !u!50 &9202436825395432025
 Rigidbody2D:
   serializedVersion: 4

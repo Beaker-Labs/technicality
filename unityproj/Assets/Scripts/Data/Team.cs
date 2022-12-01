@@ -6,5 +6,5 @@ public class Team
 {
     public string Name;
     public bool PlayerControlled;
-    public List<Vehicle> Vehicles;
+    public List<Vehicle> Vehicles = new List<Vehicle>();
 }

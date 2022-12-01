@@ -16,7 +16,6 @@ public static class GameInfo
     
     // The Omnibullet
     public static GameObject Bullet;
-    public static GameObject Vehicle;
 
     // Manager links
     // Each field is populated by it's respective class in Awake(), values will be null prior to this.
@@ -31,6 +30,7 @@ public static class GameInfo
     public static TournamentVendorManager TournamentVendorManager;
     public static BattleManager BattleManager;
 
+
     private static TextAsset _names;
     private static string[] _namesList;
 
@@ -39,7 +39,6 @@ public static class GameInfo
         Campaign = new Campaign();
         TournamentSeries = Resources.LoadAll<TournamentSeries>("Tournaments");
         Bullet = Resources.Load<GameObject>("Bullet");
-        Vehicle = Resources.Load<GameObject>("Vehicle");
         _names = Resources.Load<TextAsset>("names");
         _namesList = _names.text.Split("\n");
         
@@ -54,5 +53,11 @@ public static class GameInfo
     public static string GetName()
     {
         return _namesList[Random.Range(0, _namesList.Length)];
+    }
+    
+    // This returns the parent transform to all battle scene GameObjects, it is destroyed when battle ends
+    public static Transform GetBattleRoot()
+    {
+        return BattleManager.GetBattleRoot();
     }
 }
