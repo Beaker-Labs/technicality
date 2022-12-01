@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Weapon : EquippableItem
 {
     [Header("Weapon Properties")]
     public float FireRate; // Rate of fire in RPM

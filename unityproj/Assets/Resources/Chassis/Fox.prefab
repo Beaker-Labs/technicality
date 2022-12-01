@@ -129,10 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c76eab1057b5184aa836702ab0308ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0
   turnRate: 200
-  isFixed: 1
-  fullRotation: 1
+  offset: 0
+  fullRotation: 0
   rotationLimitMin: -90
   rotationLimitMax: 90
 --- !u!1 &9202436825169261223

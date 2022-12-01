@@ -7,9 +7,11 @@ using UnityEngine.InputSystem;
 
 public class WeaponMount : MonoBehaviour
 {
-    public float offset; // Angle (cw) from 'forward' of the turret's resting position.
+    // maybe this should be a weapon stat?
     public float turnRate;
-    public bool isFixed;
+
+    public float offset; // Angle (cw) from 'forward' of the turret's resting position.
+    //public bool isFixed;
     public bool fullRotation;
     public float rotationLimitMin = -180;
     public float rotationLimitMax = 180;
@@ -20,12 +22,12 @@ public class WeaponMount : MonoBehaviour
     private bool _firing;
     private bool _hasWeapon;
     private float _currentAngle; // offset is center
-    private Gun _weapon;
+    private Weapon _weapon;
 
     // Start is called before the first frame update
     void Start()
     {
-        _weapon = GetComponentInChildren<Gun>();
+        _weapon = GetComponentInChildren<Weapon>();
         _mainCam = Camera.main;
         _currentAngle = offset;
         _hasWeapon = _weapon != null;
@@ -87,7 +89,41 @@ public class WeaponMount : MonoBehaviour
         _firing = false;
     }
 
-    
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, 5);
+        
+        if (fullRotation)
+        {
+            Gizmos.color = Color.white;
+            DrawArcGizmo(transform.position, 30, 0, 360);
+        }
+        else
+        {
+            float lowerExtent = transform.parent.rotation.eulerAngles.z + rotationLimitMin + offset;
+            float upperExtent = transform.parent.rotation.eulerAngles.z + rotationLimitMax + offset;
+            Gizmos.color = Color.white;
+            DrawArcGizmo(transform.position, 30, lowerExtent, upperExtent);
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, Quaternion.Euler(0, 0, lowerExtent) * Vector3.up * 40);
+            Gizmos.DrawRay(transform.position, Quaternion.Euler(0, 0, upperExtent) * Vector3.up * 40);
+        }
+    }
+
+    private void DrawArcGizmo(Vector3 center, float radius, float startAngle, float endAngle)
+    {
+        Vector3 pos = center + Quaternion.Euler(0, 0, startAngle) * Vector3.up * radius;
+        Vector3 lastPos = pos;
+        for (int i = 1; i <= 16; i++)
+        {
+            pos = center + Quaternion.Euler(0, 0, Mathf.Lerp(startAngle, endAngle, (float)i / 16)) * Vector3.up * radius;
+            Gizmos.DrawLine(pos, lastPos);
+            lastPos = pos;
+        }
+    }
+
+
     // Set the point to target.
     // Is called by VehicleController to tell the WeaponMount what point to aim at.
     // Just in case, this class has been given an explicit script execution order behind that of vehicleController,

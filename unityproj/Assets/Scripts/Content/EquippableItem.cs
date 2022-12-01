@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-public class EquippableItem : ScriptableObject
+public class EquippableItem : MonoBehaviour
 {
-    public string Name = "";
+    [Header("Item Properties")]
+    public string ItemName = "";
     public string Description = "";
     public int Weight;
 }

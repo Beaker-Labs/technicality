@@ -7,11 +7,18 @@ public class Vehicle
 {
     public string Name = "Fox";
     public Chassis Chassis;
-    public List<WeaponItem> Weapons;
+    public List<Weapon> Weapons;
     public List<ArmorItem> Armor;
     public string ChassisID = "Fox";
     //public List<ModItem> Mods;
     //public Pilot Pilot;
+
+    public Vehicle()
+    {
+        Chassis = GetChassis();
+        Weapons = new List<Weapon>();
+        Weapons.Add(Resources.Load<GameObject>($"Items/Weapons/TestGun").GetComponent<Weapon>());
+    }
 
     public Chassis GetChassis()
     {
