@@ -13,7 +13,7 @@ public class BattleManager : MonoBehaviour
 {
     public GameObject placeholderVehicle;
     private List<Team> _teams;
-    private List<List<Chassis>> _spawnedVehicles;
+    private List<List<VehicleController>> _spawnedVehicles;
     private Arena _arena;
 
     private Transform _temp; // transform which is parent to everything that can be deleted once the battle is over 
@@ -88,20 +88,21 @@ public class BattleManager : MonoBehaviour
     // UNFINISHED, probably not ready for multi vehicle teams
     public void SpawnTeams()
     {
-        _spawnedVehicles = new List<List<Chassis>>();
+        _spawnedVehicles = new List<List<VehicleController>>();
         for (int i = 0; i < _teams.Count; i++)
         {
-            _spawnedVehicles.Add(new List<Chassis>());
+            _spawnedVehicles.Add(new List<VehicleController>());
             for (int j = 0; j < _teams[i].Vehicles.Count; j++)
             {
                 GameObject g = Instantiate(_teams[i].Vehicles[j].GetChassis().gameObject, _temp);
-                _spawnedVehicles[i].Add(g.GetComponent<Chassis>());
+                _spawnedVehicles[i].Add(g.GetComponent<VehicleController>());
                 _spawnedVehicles[i][j].transform.position = _arena.spawnPoints[i].position;
+                _spawnedVehicles[i][j].Initialize(_teams[i].Vehicles[j]);
             }
         }
         
         // Placeholder, enable player control of vehicle 1
-        _spawnedVehicles[0][0].isPlayerControlled = true;
+        // _spawnedVehicles[0][0].isPlayerControlled = true;
     }
 
     private void LoadTournamentScene()
@@ -115,5 +116,19 @@ public class BattleManager : MonoBehaviour
     public Transform GetBattleRoot()
     {
         return _temp;
+    }
+
+    public List<VehicleController> GetVehicles()
+    {
+        List<VehicleController> ret = new List<VehicleController>();
+        foreach (List<VehicleController> team in _spawnedVehicles)
+        {
+            foreach (VehicleController vehicle in team)
+            {
+                ret.Add(vehicle);
+            }
+        }
+
+        return ret;
     }
 }

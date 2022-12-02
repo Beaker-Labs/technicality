@@ -16,21 +16,17 @@ public class WeaponMount : MonoBehaviour
     public float rotationLimitMin = -180;
     public float rotationLimitMax = 180;
     
-    private Camera _mainCam;
     private Vector2 _target;
     private bool _active;
     private bool _firing;
-    private bool _hasWeapon;
+    private bool _hasWeapon = false;
     private float _currentAngle; // offset is center
     private Weapon _weapon;
 
     // Start is called before the first frame update
     void Start()
     {
-        _weapon = GetComponentInChildren<Weapon>();
-        _mainCam = Camera.main;
         _currentAngle = offset;
-        _hasWeapon = _weapon != null;
     }
     
     
@@ -82,7 +78,7 @@ public class WeaponMount : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward);
         
         // Do the shooty if appropriate
-        if (_firing && _weapon != null)
+        if (_firing && _hasWeapon)
         {
             _weapon.Fire();
         }
@@ -123,6 +119,11 @@ public class WeaponMount : MonoBehaviour
         }
     }
 
+    public void AddWeapon(GameObject weaponPrefab)
+    {
+        _weapon = Instantiate(weaponPrefab, transform).GetComponent<Weapon>();
+        _hasWeapon = true;
+    }
 
     // Set the point to target.
     // Is called by VehicleController to tell the WeaponMount what point to aim at.

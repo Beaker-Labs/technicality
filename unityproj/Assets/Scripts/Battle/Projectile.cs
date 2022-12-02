@@ -30,10 +30,10 @@ public class Projectile : MonoBehaviour
         RaycastHit2D hit = Physics2D.Linecast(_lastPos, transform.position);
         if (hit.rigidbody != null && hit.rigidbody != origin)
         {
-            if (hit.rigidbody.TryGetComponent(out Chassis hitChassis))
+            if (hit.rigidbody.TryGetComponent(out VehicleController hitVehicle))
             {
                 //Debug.Log($"hit {hit.transform.name}, (not {origin.transform.name}) for {damage} damage, target health remaining: {hitChassis.GetHitPoints() - damage}" );
-                hitChassis.TakeDamage(damage);
+                hitVehicle.TakeDamage(damage);
                 Destroy(gameObject);
                 return;
             }
