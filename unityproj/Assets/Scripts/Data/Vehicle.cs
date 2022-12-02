@@ -9,6 +9,7 @@ public class Vehicle
     public Chassis Chassis;
     public List<Weapon> Weapons;
     public List<ArmorItem> Armor;
+    public bool PlayerControlled;
     public string ChassisID = "Fox";
     //public List<ModItem> Mods;
     //public Pilot Pilot;

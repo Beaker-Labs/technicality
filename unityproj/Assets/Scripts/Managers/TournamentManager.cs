@@ -45,6 +45,7 @@ public class TournamentManager : MonoBehaviour
         _bracket = new Match(template.Stages);
         _nextMatch = _bracket.GetNextMatch();
         _nextMatch.Entrants[0].Winner.PlayerControlled = true;
+        _nextMatch.Entrants[0].Winner.Vehicles[0].PlayerControlled = true;
         _nextMatch.Entrants[0].Winner.Name = "Player";
         Debug.Log($"Generated bracket as follows: {_bracket.DebugString()}\nNext match is:{_nextMatch.GetMatchName()}");
 

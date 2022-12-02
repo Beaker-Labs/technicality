@@ -308,9 +308,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotSpeed: 200
   _rotAccel: 600
-  _maxSpeed: 200
-  _accel: 50
-  _friction: 80
+  _maxSpeed: 600
+  _accel: 200
+  _friction: 400
 --- !u!50 &9202436825395432025
 Rigidbody2D:
   serializedVersion: 4

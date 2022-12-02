@@ -31,18 +31,9 @@ public class VehicleController : MonoBehaviour
     private List<WeaponMount> _weapons;
     //private InputMaster _input;
     private Camera _mainCam;
-    
-    public enum MoveTypes
-    {
-        Tank,
-        FrontSteer,
-        RearSteer,
-        Omni
-    }
-    
+
     void Start()
     {
-        _driver = new Driver(this);
         _chassis = GetComponent<Chassis>();
         _hitPoints = _chassis.HitPoints;
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -54,6 +45,8 @@ public class VehicleController : MonoBehaviour
 
     public void Initialize(Vehicle loadout)
     {
+        _driver = loadout.PlayerControlled ? new PlayerControlledDriver(this) : new ErraticDriver(this);
+
         // delete any placeholder weapons in the prefab
         foreach (Weapon w in GetComponentsInChildren<Weapon>())
         {
@@ -75,33 +68,11 @@ public class VehicleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float hor = 0;
-        float ver = 0;
-
-        // Old method that directly polled for player input
-        // if (isPlayerControlled)
-        // {
-        //     hor = _input.Vehicle.Left.ReadValue<float>() - _input.Vehicle.Right.ReadValue<float>();
-        //     ver = _input.Vehicle.Forward.ReadValue<float>() - _input.Vehicle.Backward.ReadValue<float>();
-        //
-        //     bool fire = _input.Vehicle.Fire.ReadValue<float>() > 0.5;
-        //     foreach (WeaponMount weapon in _weapons)
-        //     {
-        //         weapon.SetTarget(_mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
-        //         if (fire) weapon.Fire();
-        //     }
-        // }
-        // else
-        // {
-        //     foreach (WeaponMount weapon in _weapons)
-        //     {
-        //         weapon.UnsetTarget();
-        //     }            
-        // }
-
         _driver.Update();
-        hor = _driver.Steer;
-        ver = _driver.Throttle;
+        float steer = Mathf.Clamp(_driver.Steer, -1, 1);
+        float throttle = Mathf.Clamp(_driver.Throttle, -1, 1);
+        
+        
         if (_driver.TargetSet)
         {
             foreach (WeaponMount weapon in _weapons)
@@ -128,7 +99,7 @@ public class VehicleController : MonoBehaviour
 
         // ---- ROTATION ----
         // Calculate desired rotation speed
-        float rotDesired = hor * _rotSpeed;
+        float rotDesired = steer * _rotSpeed;
         // calculate required change in rotation
         float rotDelta = rotDesired - _rigidbody2D.angularVelocity;
         // limit delta to rotational accel
@@ -150,7 +121,7 @@ public class VehicleController : MonoBehaviour
         
         // Calculate desired velocity (vector2) based on input and facing
         Vector3 velProjFwd = Vector3.Project(_rigidbody2D.velocity, transform.up);
-        float velDesired = _maxSpeed * ver;
+        float velDesired = _maxSpeed * throttle;
         float fwdVel = velProjFwd.magnitude;
         if (Vector3.Dot(velProjFwd.normalized, transform.up) < 0) fwdVel = -fwdVel;
         float velDelta = velDesired - fwdVel;
