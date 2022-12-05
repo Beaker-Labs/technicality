@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3676541629363037706}
   - component: {fileID: 6293150624857896346}
   m_Layer: 0
-  m_Name: Arena Root
+  m_Name: Test Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

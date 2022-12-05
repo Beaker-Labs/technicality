@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script is in the root of a weapon item template prefab. It also controls the weapon when instantiated.
+// TODO: Make this abstract so weird weapons can override and implement custom behaviour without inheriting things like FireRate
 public class Weapon : EquippableItem
 {
     [Header("Weapon Properties")]

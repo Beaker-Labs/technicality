@@ -5,6 +5,8 @@ using UnityEngine;
 // This is the manager script for the Garage scene.
 public class Garage : MonoBehaviour
 {
+    private int _selectedVehicle;
+    
     void Awake()
     {
         GameInfo.Garage = this;
@@ -16,8 +18,23 @@ public class Garage : MonoBehaviour
     {
     }
 
+    private void OnEnable()
+    {
+        _selectedVehicle = 0;
+    }
+
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void SelectNextVehicle()
+    {
+        
+    }
+
+    public void SelectPreviousVehicle()
     {
         
     }

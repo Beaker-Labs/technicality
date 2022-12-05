@@ -21,6 +21,13 @@ public class Vehicle
         Weapons.Add(Resources.Load<GameObject>($"Items/Weapons/TestGun").GetComponent<Weapon>());
     }
 
+    public Vehicle(Chassis chassis)
+    {
+        Chassis = chassis;
+        Weapons = new List<Weapon>();
+        Weapons.Add(Resources.Load<GameObject>($"Items/Weapons/TestGun").GetComponent<Weapon>());
+    }
+
     public Chassis GetChassis()
     {
         return Resources.Load<GameObject>($"Chassis/{ChassisID}").GetComponent<Chassis>();

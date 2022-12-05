@@ -96,7 +96,6 @@ public class VehicleController : MonoBehaviour
         }
 
 
-
         // ---- ROTATION ----
         // Calculate desired rotation speed
         float rotDesired = steer * _rotSpeed;
@@ -118,7 +117,7 @@ public class VehicleController : MonoBehaviour
         // Apply friction
         _rigidbody2D.velocity += -frictionForce * (Vector2)transform.right;
         
-        
+
         // Calculate desired velocity (vector2) based on input and facing
         Vector3 velProjFwd = Vector3.Project(_rigidbody2D.velocity, transform.up);
         float velDesired = _maxSpeed * throttle;
@@ -131,9 +130,9 @@ public class VehicleController : MonoBehaviour
         _rigidbody2D.velocity += velDelta * (Vector2)transform.up;
     }
 
-    public void TakeDamage(int Damage)
+    public void TakeDamage(int damage)
     {
-        _hitPoints -= Damage;
+        _hitPoints -= damage;
         if(_hitPoints <= 0)
         {
             Debug.Log($"{name} has died :(");

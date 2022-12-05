@@ -8,7 +8,7 @@ using UnityEngine;
 public class TournamentSeries : ScriptableObject
 {
     public string Name = "";
-    [TextArea(15,20)] public string Description = "";
+    [TextArea(10,10)] public string Description = "";
     public List<int> Stages; // Ex: An eight person tournament would be {2,2,2}, a same size free for all would be {8} 
     public int WeightLimit;
     public bool WeightLimitPerVehicle; // Is the weight limit per vehicle (true) or combined team weight? (false)

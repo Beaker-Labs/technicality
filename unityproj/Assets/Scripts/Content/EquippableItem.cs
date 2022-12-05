@@ -5,6 +5,6 @@ public class EquippableItem : MonoBehaviour
 {
     [Header("Item Properties")]
     public string ItemName = "";
-    public string Description = "";
+    [TextArea(5,5)] public string Description = "";
     public int Weight;
 }

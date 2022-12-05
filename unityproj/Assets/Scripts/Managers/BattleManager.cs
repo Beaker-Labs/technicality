@@ -18,8 +18,7 @@ public class BattleManager : MonoBehaviour
 
     private Transform _temp; // transform which is parent to everything that can be deleted once the battle is over 
     private int _winnerIndex;
-
-
+    
     void Awake()
     {
         GameInfo.BattleManager = this;
@@ -83,7 +82,6 @@ public class BattleManager : MonoBehaviour
 
         SpawnTeams();
     }
-
 
     // UNFINISHED, probably not ready for multi vehicle teams
     public void SpawnTeams()

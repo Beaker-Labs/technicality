@@ -14,6 +14,9 @@ public class Campaign
     {
         Cash = 500;
         Inventory = new List<EquippableItem>();
+        Inventory.AddRange(GameInfo.Items);
         Garage = new List<Vehicle>();
+        //Garage.Add(new Vehicle(GameInfo.Chassis[0]));
+        Team = new Team();
     }
 }
