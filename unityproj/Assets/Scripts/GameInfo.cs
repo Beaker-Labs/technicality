@@ -15,11 +15,10 @@ public static class GameInfo
     public static DateTime StartDate = new DateTime(1995, 1, 1);
     public static List<TournamentSeries> TournamentSeries;
     public static List<EquippableItem> Items;
-    // public static List<ArmorItem> Armors;
-    // public static List<EquippableItem> Engines;
-    // public static List<EquippableItem> Modules;
-    // public static List<Weapon> Weapons;
-    
+    public static List<ArmorItem> Armors; // these more specific item lists may be redundant.
+    public static List<EngineItem> Engines;
+    public static List<ModuleItem> Modules;
+    public static List<WeaponItem> Weapons;
     public static List<Chassis> Chassis;
     
     // The Omnibullet
@@ -45,8 +44,8 @@ public static class GameInfo
     {
         LoadContent();
         
-        
-        Campaign = new Campaign();
+        // This depends on content being loaded and thus must be done after LoadContent();
+        //Campaign = new Campaign();
     }
 
     // This does not respect the async features of the unity addressables system.
@@ -66,32 +65,49 @@ public static class GameInfo
         // Load the list of names
         _names = Resources.Load<TextAsset>("names").text.Split("\n");
         loadLog += $"\nLoaded {_names.Length} names";
+        
+        // Load Chassis
+        loadLog += "\n\n ---- LOADING CHASSIS ----";
+        Chassis = new List<Chassis>();
+        foreach (GameObject i in Resources.LoadAll<GameObject>("Chassis/"))
+        {
+            Chassis.Add(i.GetComponent<Chassis>());
+            loadLog += $"\n{i.name}";
+        }
 
         // Load Items
         Items = new List<EquippableItem>();
-
+        Armors = new List<ArmorItem>();
+        Engines = new List<EngineItem>();
+        Modules = new List<ModuleItem>();
+        Weapons = new List<WeaponItem>();
+        
         loadLog += "\n\n ---- LOADING ARMORS ----";
-        foreach (GameObject i in Resources.LoadAll<GameObject>("Item/Armor/"))
+        foreach (var i in Resources.LoadAll<ArmorItem>("Item/Armor/"))
         {
-            Items.Add(i.GetComponent<EquippableItem>());
-            //Armors.Add(i.GetComponent<ArmorItem>());
+            Items.Add(i);
+            Armors.Add(i);
             loadLog += $"\n{i.name}";
         }
-        // loadLog += "\n\n ---- LOADING ENGINES ----";
-        // foreach (GameObject i in Resources.LoadAll<GameObject>("Items/Engines/"))
-        // {
-        //     Items.Add(i.GetComponent<EquippableItem>());
-        // }
-        // loadLog += "\n\n ---- LOADING MODULES ----";
-        // foreach (GameObject i in Resources.LoadAll<GameObject>("Items/Modules/"))
-        // {
-        //     Items.Add(i.GetComponent<EquippableItem>());
-        // }
-        loadLog += "\n\n ---- LOADING WEAPONS ----";
-        foreach (GameObject i in Resources.LoadAll<GameObject>("Item/Weapon/"))
+        loadLog += "\n\n ---- LOADING ENGINES ----";
+        foreach (var i in Resources.LoadAll<EngineItem>("Items/Engines/"))
         {
-            Items.Add(i.GetComponent<EquippableItem>());
-            //Weapons.Add(i.GetComponent<Weapon>());
+            Items.Add(i);
+            Engines.Add(i);
+            loadLog += $"\n{i.name}";
+        }
+        loadLog += "\n\n ---- LOADING MODULES ----";
+        foreach (var i in Resources.LoadAll<ModuleItem>("Items/Modules/"))
+        {
+            Items.Add(i);
+            Modules.Add(i);
+            loadLog += $"\n{i.name}";
+        }
+        loadLog += "\n\n ---- LOADING WEAPONS ----";
+        foreach (var i in Resources.LoadAll<WeaponItem>("Item/Weapon/"))
+        {
+            Items.Add(i);
+            Weapons.Add(i);
             loadLog += $"\n{i.name}";
         }
         

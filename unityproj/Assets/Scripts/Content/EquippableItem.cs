@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
-public class EquippableItem : MonoBehaviour
+public abstract class EquippableItem : ScriptableObject
 {
     [Header("Item Properties")]
-    public string ItemName = "";
-    [TextArea(5,5)] public string Description = "";
-    public int Weight;
+    public string itemName = "";
+    [TextArea(5,5)] public string description = "";
+    public int weight;
+    public Sprite icon;
 }

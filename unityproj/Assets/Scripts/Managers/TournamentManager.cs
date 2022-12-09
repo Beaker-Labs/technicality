@@ -61,7 +61,18 @@ public class TournamentManager : MonoBehaviour
 
     public void StartNextMatch()
     {
-        GameInfo.CloseLoadingDoors(LoadBattleScene);
+        if (_bracket.Winner != null)
+        {
+            if (_bracket.Winner.PlayerControlled)
+            {
+                GameInfo.Campaign.Cash += _template.Prize;
+            }
+            GameInfo.CloseLoadingDoors(LoadHQScene);
+        }
+        else
+        {
+            GameInfo.CloseLoadingDoors(LoadBattleScene);
+        }
     }
 
     // is called by battlemanager when a match finishes

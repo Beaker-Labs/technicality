@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Campaign
 {
+    public string TeamName = "Player Team";
     public int Month;
     public int Cash;
-    public Team Team;
+    // public BattleTeam BattleTeam;
     public List<EquippableItem> Inventory;
     public List<Vehicle> Garage;
+    public List<Vehicle> TeamVehicles;
 
     public Campaign()
     {
@@ -16,7 +18,12 @@ public class Campaign
         Inventory = new List<EquippableItem>();
         Inventory.AddRange(GameInfo.Items);
         Garage = new List<Vehicle>();
-        //Garage.Add(new Vehicle(GameInfo.Chassis[0]));
-        Team = new Team();
+        Garage.Add(new Vehicle(GameInfo.Chassis[0]));
+        // BattleTeam = new BattleTeam(TeamName, Garage, true);
+    }
+
+    public BattleTeam GetBattleTeam()
+    {
+        return new BattleTeam(TeamName, TeamVehicles, true);
     }
 }

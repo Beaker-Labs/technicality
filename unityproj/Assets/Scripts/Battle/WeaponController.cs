@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-// This script is in the root of a weapon item template prefab. It also controls the weapon when instantiated.
-// TODO: Make this abstract so weird weapons can override and implement custom behaviour without inheriting things like FireRate
-public class Weapon : EquippableItem
+// Root monobehaviour for weapon prefabs/gameobjects.
+// Later, this should be made abstract.
+public class WeaponController : MonoBehaviour
 {
     [Header("Weapon Properties")]
-    public float FireRate; // Rate of fire in RPM
+    public float fireRate; // Rate of fire in RPM
     private float _fireDelay; // time in seconds between each shot, calculated from FireRate
     
     [Header("Bullet Properties")]
@@ -17,15 +15,15 @@ public class Weapon : EquippableItem
     private GameObject _bullet;
     private float _lastTimeFired;
     private Rigidbody2D _rigidbody;
-
+    
     void Start()
     {
-        _fireDelay = 60 / FireRate;
+        _fireDelay = 60 / fireRate;
         _bullet = GameInfo.Bullet;
         _rigidbody = GetComponentInParent<Rigidbody2D>();
     }
 
-    public void Fire()
+    public virtual void Fire()
     {
         if (Time.time > _lastTimeFired + _fireDelay)
         {

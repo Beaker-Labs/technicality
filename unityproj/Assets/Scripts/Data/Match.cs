@@ -9,7 +9,7 @@ using UnityEngine;
 // Do not assume all Matches have entrants!
 public class Match
 {
-    public Team Winner = null;
+    public BattleTeam Winner = null;
     public List<Match> Entrants = new List<Match>();
     public int Depth;
     
@@ -20,7 +20,7 @@ public class Match
 
         if (stages.Count == 0)
         {
-            Winner = new Team();
+            Winner = new BattleTeam();
             Winner.Name = GameInfo.GetName();
             Winner.Vehicles.Add(new Vehicle());
         }
@@ -37,14 +37,14 @@ public class Match
     // ---- Currently Unused ----
     // This constructor is for the 'fake' brackets at the bottom of the tree, which
     // contain a 'winner' (entrant) by default and no deeper brackets.
-    public Match(Team team)
+    public Match(BattleTeam battleTeam)
     {
-        Winner = team;
+        Winner = battleTeam;
     }
 
-    public List<Team> GetMatchEntrantTeams()
+    public List<BattleTeam> GetMatchEntrantTeams()
     {
-        List<Team> teams = new List<Team>();
+        List<BattleTeam> teams = new List<BattleTeam>();
         foreach (Match i in Entrants)
         {
             if (i.Winner == null)

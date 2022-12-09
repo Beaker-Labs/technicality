@@ -7,7 +7,7 @@ public class Vehicle
 {
     public string Name = "Fox";
     public Chassis Chassis;
-    public List<Weapon> Weapons;
+    public List<WeaponItem> Weapons;
     public List<ArmorItem> Armor;
     public bool PlayerControlled;
     public string ChassisID = "Fox";
@@ -17,19 +17,25 @@ public class Vehicle
     public Vehicle()
     {
         Chassis = GetChassis();
-        Weapons = new List<Weapon>();
-        Weapons.Add(Resources.Load<GameObject>($"Items/Weapons/TestGun").GetComponent<Weapon>());
+        Weapons = new List<WeaponItem>();
+        Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
     }
 
     public Vehicle(Chassis chassis)
     {
         Chassis = chassis;
-        Weapons = new List<Weapon>();
-        Weapons.Add(Resources.Load<GameObject>($"Items/Weapons/TestGun").GetComponent<Weapon>());
+        Weapons = new List<WeaponItem>();
+        Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
     }
 
     public Chassis GetChassis()
     {
         return Resources.Load<GameObject>($"Chassis/{ChassisID}").GetComponent<Chassis>();
+    }
+
+    public void Instantiate(Transform parent)
+    {
+        Chassis instantiated = UnityEngine.Object.Instantiate(Chassis.gameObject, parent).GetComponent<Chassis>();
+        
     }
 }

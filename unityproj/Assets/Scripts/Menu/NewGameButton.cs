@@ -13,6 +13,7 @@ public class NewGameButton : MonoBehaviour
 
     private void LoadHQ()
     {
+        GameInfo.Campaign = new Campaign();
         GetComponentInParent<Canvas>().gameObject.SetActive(false);
         destinationCanvas.SetActive(true);
     }

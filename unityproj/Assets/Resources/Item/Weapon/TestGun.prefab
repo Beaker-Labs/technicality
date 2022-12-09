@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7661130171887133370}
-  - component: {fileID: 4096212671353395179}
+  - component: {fileID: 3016865714790756306}
   m_Layer: 0
   m_Name: TestGun
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4096212671353395179
+--- !u!114 &3016865714790756306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,12 +126,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7681442168780949689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2c3ecee6533f84da5c0d9691b42798, type: 3}
+  m_Script: {fileID: 11500000, guid: 58bd9df319074f458215704c6eac2484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemName: TestGun
-  Description: 
-  Weight: 50
-  FireRate: 90
+  fireRate: 120
   projectileSpeed: 1000
   projectileDamage: 100

@@ -21,7 +21,7 @@ public class WeaponMount : MonoBehaviour
     private bool _firing;
     private bool _hasWeapon = false;
     private float _currentAngle; // offset is center
-    private Weapon _weapon;
+    private WeaponController _weaponItem;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +80,7 @@ public class WeaponMount : MonoBehaviour
         // Do the shooty if appropriate
         if (_firing && _hasWeapon)
         {
-            _weapon.Fire();
+            _weaponItem.Fire();
         }
         _firing = false;
     }
@@ -121,7 +121,7 @@ public class WeaponMount : MonoBehaviour
 
     public void AddWeapon(GameObject weaponPrefab)
     {
-        _weapon = Instantiate(weaponPrefab, transform).GetComponent<Weapon>();
+        _weaponItem = Instantiate(weaponPrefab, transform).GetComponent<WeaponController>();
         _hasWeapon = true;
     }
 

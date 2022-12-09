@@ -22,6 +22,7 @@ public class VehicleController : MonoBehaviour
     
     private int _hitPoints; // Current HP, Max is drawn from Template
     private bool _alive = true;
+    private bool _active;
 
     private Driver _driver;
 
@@ -48,7 +49,7 @@ public class VehicleController : MonoBehaviour
         _driver = loadout.PlayerControlled ? new PlayerControlledDriver(this) : new ErraticDriver(this);
 
         // delete any placeholder weapons in the prefab
-        foreach (Weapon w in GetComponentsInChildren<Weapon>())
+        foreach (WeaponController w in GetComponentsInChildren<WeaponController>())
         {
             Destroy(w.gameObject);
         }
@@ -56,7 +57,7 @@ public class VehicleController : MonoBehaviour
         WeaponMount[] wm = GetComponentsInChildren<WeaponMount>();
         for (int i = 0; i < wm.Length; i++)
         {
-            wm[i].AddWeapon(loadout.Weapons[i].gameObject);
+            wm[i].AddWeapon(loadout.Weapons[i].prefab);
         }
     }
 
@@ -68,30 +69,36 @@ public class VehicleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _driver.Update();
-        float steer = Mathf.Clamp(_driver.Steer, -1, 1);
-        float throttle = Mathf.Clamp(_driver.Throttle, -1, 1);
+        float steer = 0;
+        float throttle = 0;
+
+        if (_alive && _active)
+        {
+            _driver.Update();
+            steer = Mathf.Clamp(_driver.Steer, -1, 1);
+            throttle = Mathf.Clamp(_driver.Throttle, -1, 1);
         
         
-        if (_driver.TargetSet)
-        {
-            foreach (WeaponMount weapon in _weapons)
+            if (_driver.TargetSet)
             {
-                weapon.SetTarget(_driver.Target);
+                foreach (WeaponMount weapon in _weapons)
+                {
+                    weapon.SetTarget(_driver.Target);
+                }
             }
-        }
-        else
-        {
-            foreach (WeaponMount weapon in _weapons)
+            else
             {
-                weapon.UnsetTarget();
+                foreach (WeaponMount weapon in _weapons)
+                {
+                    weapon.UnsetTarget();
+                }
             }
-        }
-        if (_driver.Fire)
-        {
-            foreach (WeaponMount weapon in _weapons)
+            if (_driver.Fire)
             {
-                weapon.Fire();
+                foreach (WeaponMount weapon in _weapons)
+                {
+                    weapon.Fire();
+                }
             }
         }
 
@@ -147,6 +154,11 @@ public class VehicleController : MonoBehaviour
     public bool IsAlive()
     {
         return _alive;
+    }
+
+    public void Activate()
+    {
+        _active = true;
     }
 
     public int GetHitPoints()

@@ -1204,9 +1204,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 235476625}
-        m_TargetAssemblyTypeName: TransitionButton, Assembly-CSharp
-        m_MethodName: Transition
+      - m_Target: {fileID: 305196667}
+        m_TargetAssemblyTypeName: Garage, Assembly-CSharp
+        m_MethodName: ReturnToHQ
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1369,6 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f9b87208f932846be50b00b9f9559a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicleHolder: {fileID: 0}
 --- !u!1 &313017678
 GameObject:
   m_ObjectHideFlags: 0

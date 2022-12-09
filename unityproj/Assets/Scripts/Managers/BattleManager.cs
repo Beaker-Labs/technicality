@@ -12,7 +12,7 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public GameObject placeholderVehicle;
-    private List<Team> _teams;
+    private List<BattleTeam> _teams;
     private List<List<VehicleController>> _spawnedVehicles;
     private Arena _arena;
 
@@ -98,9 +98,6 @@ public class BattleManager : MonoBehaviour
                 _spawnedVehicles[i][j].Initialize(_teams[i].Vehicles[j]);
             }
         }
-        
-        // Placeholder, enable player control of vehicle 1
-        // _spawnedVehicles[0][0].isPlayerControlled = true;
     }
 
     private void LoadTournamentScene()
@@ -126,7 +123,6 @@ public class BattleManager : MonoBehaviour
                 ret.Add(vehicle);
             }
         }
-
         return ret;
     }
 }

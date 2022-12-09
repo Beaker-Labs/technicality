@@ -6,7 +6,9 @@ using UnityEngine;
 public class Garage : MonoBehaviour
 {
     private int _selectedVehicle;
-    
+    private Vehicle _vehicle;
+    public Transform vehicleHolder;
+
     void Awake()
     {
         GameInfo.Garage = this;
@@ -21,6 +23,7 @@ public class Garage : MonoBehaviour
     private void OnEnable()
     {
         _selectedVehicle = 0;
+        GameInfo.Campaign.Garage[_selectedVehicle].Instantiate(vehicleHolder);
     }
 
     // Update is called once per frame
@@ -31,10 +34,20 @@ public class Garage : MonoBehaviour
 
     public void SelectNextVehicle()
     {
-        
+        _selectedVehicle = (_selectedVehicle + 1) % GameInfo.Campaign.Garage.Count;
     }
 
     public void SelectPreviousVehicle()
+    {
+        _selectedVehicle = (_selectedVehicle - 1) % GameInfo.Campaign.Garage.Count;
+    }
+
+    public void ReturnToHQ()
+    {
+        GameInfo.CloseLoadingDoors(LoadHQ);
+    }
+
+    private void LoadHQ()
     {
         
     }
