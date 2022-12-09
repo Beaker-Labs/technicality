@@ -30,7 +30,6 @@ public class VehicleController : MonoBehaviour
     private Chassis _chassis;
     private Rigidbody2D _rigidbody2D;
     private List<WeaponMount> _weapons;
-    //private InputMaster _input;
     private Camera _mainCam;
 
     void Start()
@@ -38,8 +37,6 @@ public class VehicleController : MonoBehaviour
         _chassis = GetComponent<Chassis>();
         _hitPoints = _chassis.HitPoints;
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        //_input = new InputMaster();
-        //_input.Vehicle.Enable();
         _weapons = GetComponentsInChildren<WeaponMount>().ToList();
         _mainCam = Camera.main;
     }
@@ -59,6 +56,8 @@ public class VehicleController : MonoBehaviour
         {
             wm[i].AddWeapon(loadout.Weapons[i].prefab);
         }
+
+        _active = true;
     }
 
     // Update is called once per frame
