@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WeaponMount : MonoBehaviour
 {
+    public int size = 1;
     // maybe this should be a weapon stat?
     public float turnRate;
 
@@ -28,8 +25,6 @@ public class WeaponMount : MonoBehaviour
     {
         _currentAngle = offset;
     }
-    
-    
 
     void FixedUpdate()
     {
@@ -62,7 +57,6 @@ public class WeaponMount : MonoBehaviour
             //     Debug.Log($"targetAngle: {targetAngle}, original targetAngle: {targetAngleOriginal}, desiredAngle: {desiredAngle}");
             // }
         }
-        
 
         // moveTowardsAngle will cross over the back while moveTowards wont
         if (fullRotation)
@@ -83,6 +77,11 @@ public class WeaponMount : MonoBehaviour
             _weaponItem.Fire();
         }
         _firing = false;
+    }
+
+    public void SetEditMode(bool isEditMode = true)
+    {
+        
     }
 
     void OnDrawGizmos()
@@ -119,12 +118,20 @@ public class WeaponMount : MonoBehaviour
         }
     }
 
-    public void AddWeapon(GameObject weaponPrefab)
+    public void SetWeapon(GameObject weaponPrefab)
     {
+        // Delete all children
+        for (int i = gameObject.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(gameObject.transform.GetChild(i).gameObject);
+        }
+        
+        // instantiate weapon
         _weaponItem = Instantiate(weaponPrefab, transform).GetComponent<WeaponController>();
         _hasWeapon = true;
     }
 
+    
     // Set the point to target.
     // Is called by VehicleController to tell the WeaponMount what point to aim at.
     // Just in case, this class has been given an explicit script execution order behind that of vehicleController,

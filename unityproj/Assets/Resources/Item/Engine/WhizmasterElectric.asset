@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2c3ecee6533f84da5c0d9691b42798, type: 3}
-  m_Name: NormalGun
+  m_Script: {fileID: 11500000, guid: 0966f0878d9166049aff456a3194eaa7, type: 3}
+  m_Name: WhizmasterElectric
   m_EditorClassIdentifier: 
-  itemName: Normal Gun
+  itemName: Whizmaster Electric
   description: 
-  weight: 15
+  weight: 5
   icon: {fileID: 0}
-  prefab: {fileID: 7681442168780949689, guid: d7430dddcb8eb2145be14f04315012bb, type: 3}

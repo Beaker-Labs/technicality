@@ -16,7 +16,7 @@ public class BattleManager : MonoBehaviour
     private List<List<VehicleController>> _spawnedVehicles;
     private Arena _arena;
 
-    private Transform _temp; // transform which is parent to everything that can be deleted once the battle is over 
+    private Transform _battleRoot; // transform which is parent to everything that can be deleted once the battle is over 
     private int _winnerIndex;
     
     void Awake()
@@ -75,10 +75,10 @@ public class BattleManager : MonoBehaviour
 
     public void StartMatch(Match match, GameObject arena)
     {
-        _temp = new GameObject("temp").transform;
-        _temp.parent = transform;
+        _battleRoot = new GameObject("battleRoot").transform;
+        _battleRoot.parent = transform;
         _teams = match.GetMatchEntrantTeams();
-        _arena = Instantiate(arena, _temp).GetComponent<Arena>();
+        _arena = Instantiate(arena, _battleRoot).GetComponent<Arena>();
 
         SpawnTeams();
     }
@@ -92,17 +92,19 @@ public class BattleManager : MonoBehaviour
             _spawnedVehicles.Add(new List<VehicleController>());
             for (int j = 0; j < _teams[i].Vehicles.Count; j++)
             {
-                GameObject g = Instantiate(_teams[i].Vehicles[j].GetChassis().gameObject, _temp);
+                GameObject g = _teams[i].Vehicles[j].Spawn(_battleRoot);
+                
+                // GameObject g = Instantiate(_teams[i].Vehicles[j].GetChassis().gameObject, _battleRoot);
                 _spawnedVehicles[i].Add(g.GetComponent<VehicleController>());
                 _spawnedVehicles[i][j].transform.position = _arena.spawnPoints[i].position;
-                _spawnedVehicles[i][j].Initialize(_teams[i].Vehicles[j]);
+                // _spawnedVehicles[i][j].Initialize(_teams[i].Vehicles[j]);
             }
         }
     }
 
     private void LoadTournamentScene()
     {
-        Destroy(_temp.gameObject);
+        Destroy(_battleRoot.gameObject);
         gameObject.SetActive(false);
         GameInfo.TournamentManager.gameObject.SetActive(true);
         GameInfo.TournamentManager.MatchWon(_winnerIndex);
@@ -110,7 +112,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform GetBattleRoot()
     {
-        return _temp;
+        return _battleRoot;
     }
 
     public List<VehicleController> GetVehicles()

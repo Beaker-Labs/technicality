@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2c3ecee6533f84da5c0d9691b42798, type: 3}
   m_Name: TestGun
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Test Gun
   description: 
-  weight: 0
+  weight: 30
   icon: {fileID: 0}
   prefab: {fileID: 7681442168780949689, guid: 841cb1855f685b84a89e61e14ad2a315, type: 3}

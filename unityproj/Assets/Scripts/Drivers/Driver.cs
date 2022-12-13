@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.Animations;
 
 // base class for other driver scripts to override.
-// Finds the nearest enemy and drives towards it while shooting
-// once there are several AIs, this class should be made abstract
 public abstract class Driver
 {
     public float Steer;

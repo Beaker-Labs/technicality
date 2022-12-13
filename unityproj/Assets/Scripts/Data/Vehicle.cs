@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 // Data type which can be edited in the garage, saved, loaded, and passed to the BattleManager to be instanced
 public class Vehicle
@@ -33,9 +34,47 @@ public class Vehicle
         return Resources.Load<GameObject>($"Chassis/{ChassisID}").GetComponent<Chassis>();
     }
 
-    public void Instantiate(Transform parent)
+    public GameObject Spawn(Transform parent, Vector3 position = new Vector3())
     {
-        Chassis instantiated = UnityEngine.Object.Instantiate(Chassis.gameObject, parent).GetComponent<Chassis>();
-        
+        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject).GetComponent<VehicleController>();
+        spawnedVehicle.transform.parent = parent;
+        spawnedVehicle.transform.position = position;
+        spawnedVehicle.SetDriver(PlayerControlled); // Replace this with some method of actually loading an AI
+        // load weapons
+        List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
+        if (weaponMounts.Count != Weapons.Count)
+        {
+            Debug.Log($"weaponMounts.Count is {weaponMounts.Count} while Weapons.Count is {Weapons.Count}, They should be the same.");
+        }
+        for (int i = 0; i < Weapons.Count; i++)
+        {
+            if (Weapons[i] != null)
+            {
+                weaponMounts[i].SetWeapon(Weapons[i].prefab);
+            }
+        }
+        spawnedVehicle.Activate();
+        return spawnedVehicle.gameObject;
+    }
+
+    public GameObject SpawnEditMode(Transform parent)
+    {
+        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject).GetComponent<VehicleController>();
+        spawnedVehicle.transform.parent = parent;
+        // load weapons
+        List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
+
+        for (int i = 0; i < Weapons.Count; i++)
+        {
+            WeaponSlot ws = Object.Instantiate(GameInfo.WeaponSlotPrefab, spawnedVehicle.transform).GetComponent<WeaponSlot>();
+            ws.Initialize(this, i);
+
+            if (Weapons[i] != null)
+            {
+                weaponMounts[i].SetWeapon(Weapons[i].prefab);
+            }
+        }
+        spawnedVehicle.Activate();
+        return spawnedVehicle.gameObject;
     }
 }

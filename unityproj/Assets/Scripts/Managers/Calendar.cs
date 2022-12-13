@@ -89,9 +89,10 @@ public class Calendar : MonoBehaviour
     private void LoadTournamentScene()
     {
         GameInfo.Campaign.Cash -= _selectedTournament.EntryFee;
-        GetComponent<Canvas>().gameObject.SetActive(false);
-        GameInfo.TournamentManager.SetupTournament(_selectedTournament, name);
-        // GameInfo.TournamentManager.Template = _selectedTournament;
+        
         GameInfo.TournamentManager.gameObject.SetActive(true);
+        GameInfo.TournamentManager.SetupTournament(_selectedTournament, name);
+        
+        gameObject.SetActive(false);
     }
 }

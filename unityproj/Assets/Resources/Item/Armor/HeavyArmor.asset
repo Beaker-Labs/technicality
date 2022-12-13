@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: LightArmor
   description: 
-  weight: 30
+  weight: 35
   icon: {fileID: 0}
-  Armor: 15
+  Armor: 30
   HitPoints: 15

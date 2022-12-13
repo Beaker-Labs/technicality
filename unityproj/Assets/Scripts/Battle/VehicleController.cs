@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // This is the root controller script for vehicles.
 [RequireComponent(typeof(Chassis))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class VehicleController : MonoBehaviour
 {
+    [Header("Object Links")]
+    public List<WeaponMount> WeaponMounts;
+
     [Header("Placeholder Stat overrides")]
     // Serialization of these is a placeholder, they will eventually be determined by chassis and equipment
     [SerializeField] private float _rotSpeed = 200;
@@ -41,23 +41,9 @@ public class VehicleController : MonoBehaviour
         _mainCam = Camera.main;
     }
 
-    public void Initialize(Vehicle loadout)
+    public void SetDriver(bool playerControlled)
     {
-        _driver = loadout.PlayerControlled ? new PlayerControlledDriver(this) : new ErraticDriver(this);
-
-        // delete any placeholder weapons in the prefab
-        foreach (WeaponController w in GetComponentsInChildren<WeaponController>())
-        {
-            Destroy(w.gameObject);
-        }
-
-        WeaponMount[] wm = GetComponentsInChildren<WeaponMount>();
-        for (int i = 0; i < wm.Length; i++)
-        {
-            wm[i].AddWeapon(loadout.Weapons[i].prefab);
-        }
-
-        _active = true;
+        _driver = playerControlled ? new PlayerControlledDriver(this) : new ErraticDriver(this);
     }
 
     // Update is called once per frame
@@ -155,13 +141,25 @@ public class VehicleController : MonoBehaviour
         return _alive;
     }
 
+    // Call to activate the vehicle so it can move and shoot
     public void Activate()
     {
         _active = true;
+    }
+    
+    public void ActivateEditMode()
+    {
+        
     }
 
     public int GetHitPoints()
     {
         return _hitPoints;
+    }
+
+    [ContextMenu("Detect Weapon Mounts")]
+    private void DetectWeaponMounts()
+    {
+        WeaponMounts = GetComponentsInChildren<WeaponMount>().ToList();
     }
 }

@@ -1,13 +1,16 @@
 using System;
+using System.Threading.Tasks;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // This is the manager script for the Garage scene.
 public class Garage : MonoBehaviour
 {
     private int _selectedVehicle;
-    private Vehicle _vehicle;
+    public VehicleController activeVehicleInstance;
     public Transform vehicleHolder;
+    public ItemSelector itemSelector;
 
     void Awake()
     {
@@ -22,8 +25,7 @@ public class Garage : MonoBehaviour
 
     private void OnEnable()
     {
-        _selectedVehicle = 0;
-        GameInfo.Campaign.Garage[_selectedVehicle].Instantiate(vehicleHolder);
+        SelectVehicle(0);
     }
 
     // Update is called once per frame
@@ -32,14 +34,30 @@ public class Garage : MonoBehaviour
         
     }
 
+    public void SelectItem(Type itemType, Action<EquippableItem> setItemCallback)
+    {
+        itemSelector.Show(itemType, setItemCallback);
+    }
+
     public void SelectNextVehicle()
     {
         _selectedVehicle = (_selectedVehicle + 1) % GameInfo.Campaign.Garage.Count;
+        SelectVehicle(_selectedVehicle);
+
     }
 
     public void SelectPreviousVehicle()
     {
         _selectedVehicle = (_selectedVehicle - 1) % GameInfo.Campaign.Garage.Count;
+        SelectVehicle(_selectedVehicle);
+    }
+
+    private void SelectVehicle(int index)
+    {
+        _selectedVehicle = index;
+        if (vehicleHolder.childCount > 0) Destroy(vehicleHolder.GetChild(0).gameObject);
+        activeVehicleInstance = GameInfo.Campaign.Garage[index].SpawnEditMode(vehicleHolder).GetComponent<VehicleController>();
+        activeVehicleInstance.ActivateEditMode();
     }
 
     public void ReturnToHQ()
@@ -49,6 +67,8 @@ public class Garage : MonoBehaviour
 
     private void LoadHQ()
     {
+        GameInfo.Headquarters.gameObject.SetActive(true);
         
+        gameObject.SetActive(false);
     }
 }

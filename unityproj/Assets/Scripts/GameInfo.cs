@@ -21,6 +21,13 @@ public static class GameInfo
     public static List<WeaponItem> Weapons;
     public static List<Chassis> Chassis;
     
+    // GlobalData content
+    public static Color TextPositiveColor;
+    public static Color TextNegativeColor;
+    public static GameObject WeaponSlotPrefab;
+    
+    
+    
     // The Omnibullet
     public static GameObject Bullet;
 
@@ -53,6 +60,8 @@ public static class GameInfo
     private static void LoadContent()
     {
         string loadLog = "";
+        
+        // Load Global Data
         
         // Load Tournament Series
         TournamentSeries = Resources.LoadAll<TournamentSeries>("Tournament").ToList();
@@ -90,14 +99,14 @@ public static class GameInfo
             loadLog += $"\n{i.name}";
         }
         loadLog += "\n\n ---- LOADING ENGINES ----";
-        foreach (var i in Resources.LoadAll<EngineItem>("Items/Engines/"))
+        foreach (var i in Resources.LoadAll<EngineItem>("Item/Engine/"))
         {
             Items.Add(i);
             Engines.Add(i);
             loadLog += $"\n{i.name}";
         }
         loadLog += "\n\n ---- LOADING MODULES ----";
-        foreach (var i in Resources.LoadAll<ModuleItem>("Items/Modules/"))
+        foreach (var i in Resources.LoadAll<ModuleItem>("Item/Module/"))
         {
             Items.Add(i);
             Modules.Add(i);
@@ -110,6 +119,12 @@ public static class GameInfo
             Weapons.Add(i);
             loadLog += $"\n{i.name}";
         }
+
+        loadLog += "\n\n loading GlobalData";
+        GlobalData gd = Resources.Load<GlobalData>("GlobalData");
+        TextPositiveColor = gd.textPositiveColor;
+        TextNegativeColor = gd.textNegativeColor;
+        WeaponSlotPrefab = gd.weaponSlotPrefab;
         
         Debug.Log(loadLog);
     }

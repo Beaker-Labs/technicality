@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c76eab1057b5184aa836702ab0308ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 1
   turnRate: 200
   offset: 0
   fullRotation: 0
@@ -303,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bdd20fa875329429be019e62d2668e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponMounts:
+  - {fileID: 9202436824399359447}
   _rotSpeed: 200
   _rotAccel: 600
   _maxSpeed: 600
