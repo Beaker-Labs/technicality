@@ -12,10 +12,13 @@ public class Garage : MonoBehaviour
     public Transform vehicleHolder;
     public ItemSelector itemSelector;
 
+    private Camera _mainCamera;
+
     void Awake()
     {
         GameInfo.Garage = this;
         gameObject.SetActive(false);
+        _mainCamera = Camera.main;
     }
 
     // Start is called before the first frame update
@@ -25,7 +28,11 @@ public class Garage : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log($"Garage count: {GameInfo.Campaign.Garage.Count}");
+        Debug.Log($"first garage member, name:{GameInfo.Campaign.Garage[0].Name}");
         SelectVehicle(0);
+        itemSelector.Hide();
+        _mainCamera.orthographicSize = 180;
     }
 
     // Update is called once per frame

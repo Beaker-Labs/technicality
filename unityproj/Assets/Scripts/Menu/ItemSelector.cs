@@ -12,6 +12,7 @@ public class ItemSelector : MonoBehaviour
     
     public void Show(Type itemType, Action<EquippableItem> setItemCallback)
     {
+        _setItemCallback = setItemCallback;
         gameObject.SetActive(true);
         
         _items = new List<EquippableItem>();
@@ -31,9 +32,21 @@ public class ItemSelector : MonoBehaviour
             il.Initialize(_items[i], i, this);
         }
         itemListEntry.SetActive(false);
-
-        
     }
+
+    public void Hide()
+    {
+        // clean up leftover ui elements before disabling self
+        foreach (Transform child in itemListEntry.transform.parent)
+        {
+            if (child != itemListEntry.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        gameObject.SetActive(false);
+    }
+
     
     // Start is called before the first frame update
     // void Start()
@@ -45,19 +58,12 @@ public class ItemSelector : MonoBehaviour
     {
         Debug.Log($"Selecting {item.itemName}");
         
-        // clean up leftover ui elements before disabling self
-        foreach (Transform child in itemListEntry.transform.parent)
-        {
-            if (child != itemListEntry.transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        gameObject.SetActive(false);
+        Hide();
 
         if (_setItemCallback != null)
         {
             _setItemCallback(item);
         }
     }
+    
 }

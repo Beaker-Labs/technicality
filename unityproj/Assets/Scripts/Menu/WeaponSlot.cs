@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class WeaponSlot : MonoBehaviour
+
+public class WeaponSlot : ItemSlot
 {
     private int _index;
-    private float _defaultScale;
     private WeaponMount _mount;
     private Vehicle _vehicle;
 
@@ -13,38 +14,17 @@ public class WeaponSlot : MonoBehaviour
         _index = index;
         _vehicle = vehicle;
         _mount = vehicle.Chassis.GetComponent<VehicleController>().WeaponMounts[index];
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        _defaultScale = transform.localScale.x;
+        transform.localPosition = _mount.transform.localPosition + Vector3.back * 10;
     }
 
-    private void OnMouseEnter()
-    {
-        transform.localScale = Vector3.one * _defaultScale * 1.1f;
-    }
-
-    private void OnMouseExit()
-    {
-        transform.localScale = Vector3.one * _defaultScale * 1.0f;
-    }
-
-    private void OnMouseDown()
-    {
-        Debug.Log("Clicked on!");
-        GetSelection();
-    }
-
-    private void GetSelection()
+    protected override void GetSelection()
     {
         GameInfo.Garage.SelectItem(typeof(WeaponItem), SetContents);
     }
 
     private void SetContents(EquippableItem item)
     {
-        Debug.Log($"Weaponslot has received the set item, {item.itemName}.\nNow you need to implement this function!");
+        //Debug.Log($"Weaponslot has received the set item, {item.itemName}.");
         if (item is not WeaponItem) throw new Exception("Tried to equip a non weapon to a weapon slot!");
         
         _vehicle.Weapons[_index] = (WeaponItem)item;

@@ -36,9 +36,8 @@ public class Vehicle
 
     public GameObject Spawn(Transform parent, Vector3 position = new Vector3())
     {
-        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject).GetComponent<VehicleController>();
-        spawnedVehicle.transform.parent = parent;
-        spawnedVehicle.transform.position = position;
+        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject, parent).GetComponent<VehicleController>();
+        spawnedVehicle.transform.localPosition = position;
         spawnedVehicle.SetDriver(PlayerControlled); // Replace this with some method of actually loading an AI
         // load weapons
         List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
@@ -59,8 +58,8 @@ public class Vehicle
 
     public GameObject SpawnEditMode(Transform parent)
     {
-        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject).GetComponent<VehicleController>();
-        spawnedVehicle.transform.parent = parent;
+        VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject, parent).GetComponent<VehicleController>();
+        spawnedVehicle.transform.localScale = Vector3.one * 2;
         // load weapons
         List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
 
@@ -74,7 +73,6 @@ public class Vehicle
                 weaponMounts[i].SetWeapon(Weapons[i].prefab);
             }
         }
-        spawnedVehicle.Activate();
         return spawnedVehicle.gameObject;
     }
 }
