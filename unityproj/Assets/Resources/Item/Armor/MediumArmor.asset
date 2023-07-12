@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Medium Armor
   description: 
   weight: 20
+  cost: 75
   icon: {fileID: 0}
   Armor: 20
   HitPoints: 20

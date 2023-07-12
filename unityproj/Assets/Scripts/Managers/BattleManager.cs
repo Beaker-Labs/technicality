@@ -18,20 +18,65 @@ public class BattleManager : MonoBehaviour
 
     private Transform _battleRoot; // transform which is parent to everything that can be deleted once the battle is over 
     private int _winnerIndex;
+    private bool _battleReportActive;
+    private string _winText = "";
     
+    private Camera _mainCamera;
+
     void Awake()
     {
         GameInfo.BattleManager = this;
         gameObject.SetActive(false);
+        _mainCamera = Camera.main;
+    }
+
+    void Start()
+    {
     }
 
     void OnEnable()
     {
+        _winnerIndex = -1;
+        _battleReportActive = false;
     }
 
     void FixedUpdate()
     {
-        CheckForWinner();
+        if (_winnerIndex == -1)
+        {
+            CheckForWinner();
+        }
+    }
+
+    private void OnGUI()
+    {
+        if (_winnerIndex == -1)
+        {
+            GUILayout.BeginArea(new Rect(10, 10, 200, 400));
+            GUILayout.BeginVertical("Battle Info", GUI.skin.box);
+            GUILayout.Space(20);
+            for (int i = 0; i < _teams.Count; i++)
+            {
+                GUILayout.Label($"Team {_teams[i].Name}");
+                for (int j = 0; j < _spawnedVehicles[i].Count; j++)
+                {
+                    GUILayout.Label($"  {_spawnedVehicles[i][j].name}, {_spawnedVehicles[i][j].GetHitPoints()}/{_spawnedVehicles[i][j].GetMaxHitPoints()}");
+                }
+                GUILayout.Space(10);
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+        }
+        
+        if (_battleReportActive)
+        {
+            GUI.Box(new Rect(Screen.width/2-100, Screen.height/2-200, 200, 400), _winText);
+            if (GUI.Button(new Rect(Screen.width/2-40, Screen.width/2+20, 80, 20), "Continue"))
+            {
+                GameInfo.CloseLoadingDoors(LoadTournamentScene);
+                _battleReportActive = false;
+            }
+        }
     }
 
     private void CheckForWinner()
@@ -62,14 +107,16 @@ public class BattleManager : MonoBehaviour
         if (teamsAlive == 0)
         {
             Debug.Log("Something's gone wrong, All teams are dead. Declaring team 0 the winner");
+            _winText = "Something's gone wrong, All teams are dead. Declaring team 0 the winner";
             _winnerIndex = 0;
-            GameInfo.CloseLoadingDoors(LoadTournamentScene);
+            _battleReportActive = true;
         }
 
         if (teamsAlive == 1)
         {
+            _winText = $"Match Complete!\n\nThe winner is:\n{_teams[winningTeam].Name}";
             _winnerIndex = winningTeam;
-            GameInfo.CloseLoadingDoors(LoadTournamentScene);
+            _battleReportActive = true;
         }
     }
 
@@ -79,6 +126,8 @@ public class BattleManager : MonoBehaviour
         _battleRoot.parent = transform;
         _teams = match.GetMatchEntrantTeams();
         _arena = Instantiate(arena, _battleRoot).GetComponent<Arena>();
+        
+        _mainCamera.orthographicSize = 720;
 
         SpawnTeams();
     }

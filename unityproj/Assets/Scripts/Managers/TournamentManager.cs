@@ -15,8 +15,7 @@ public class TournamentManager : MonoBehaviour
     public TextMeshProUGUI NextMatchTitleText;
     public Button NextMatchButton;
     public TextMeshProUGUI NextMatchButtonText;
-
-
+    
 
     void Awake()
     {
@@ -44,9 +43,20 @@ public class TournamentManager : MonoBehaviour
         _template = template;
         _bracket = new Match(template.Stages);
         _nextMatch = _bracket.GetNextMatch();
-        _nextMatch.Entrants[0].Winner.PlayerControlled = true;
-        _nextMatch.Entrants[0].Winner.Vehicles[0].PlayerControlled = true;
-        _nextMatch.Entrants[0].Winner.Name = "Player";
+
+        BattleTeam playerTeam = GameInfo.Campaign.GetBattleTeam();
+        if (playerTeam.Vehicles.Count > 0)
+        {
+            _nextMatch.Entrants[0].Winner.PlayerControlled = true;
+            _nextMatch.Entrants[0].Winner.Vehicles = GameInfo.Campaign.GetBattleTeam().Vehicles;
+            _nextMatch.Entrants[0].Winner.Vehicles[0].PlayerControlled = true;
+            _nextMatch.Entrants[0].Winner.Name = GameInfo.Campaign.TeamName;
+        }
+        else
+        {
+            Debug.Log("player entered as spectator");
+        }
+
         Debug.Log($"Generated bracket as follows: {_bracket.DebugString()}\nNext match is:{_nextMatch.GetMatchName()}");
 
         NextMatchTitleText.text = _nextMatch.GetMatchName() + "\n" + _bracket.DebugString();

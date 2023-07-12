@@ -15,5 +15,6 @@ MonoBehaviour:
   itemName: Normal Gun
   description: 
   weight: 15
+  cost: 40
   icon: {fileID: 0}
   prefab: {fileID: 7681442168780949689, guid: d7430dddcb8eb2145be14f04315012bb, type: 3}

@@ -1,5 +1,156 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1857992710856837694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5796784515588053951}
+  - component: {fileID: 4421973537153175279}
+  - component: {fileID: 2452102365823105088}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5796784515588053951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857992710856837694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 20, z: -1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2628145764132957189}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &4421973537153175279
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857992710856837694}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2bd24f8b5d841d04aa2e9799d4ff8b6e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &2452102365823105088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857992710856837694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bd9df319074f458215704c6eac2484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 60
+  projectileSpeed: 1000
+  projectileDamage: 10
+--- !u!1 &2683636471818756319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2628145764132957189}
+  - component: {fileID: 3851719015092772000}
+  m_Layer: 0
+  m_Name: weaponMount (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2628145764132957189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683636471818756319}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5796784515588053951}
+  m_Father: {fileID: 9202436825395432028}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3851719015092772000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683636471818756319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76eab1057b5184aa836702ab0308ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 1
+  turnRate: 200
+  offset: 0
+  fullRotation: 0
+  rotationLimitMin: -120
+  rotationLimitMax: 35
 --- !u!1 &7946693363739842907
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 7946693363739842907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9202436825395432028}
@@ -73,7 +224,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 64ec86cfc8843cc4797429d7185c92a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c453ea8380d446409c65832b4572eb5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9202436824399359441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalPosition: {x: -20, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -133,8 +284,8 @@ MonoBehaviour:
   turnRate: 200
   offset: 0
   fullRotation: 0
-  rotationLimitMin: -90
-  rotationLimitMax: 90
+  rotationLimitMin: -35
+  rotationLimitMax: 120
 --- !u!1 &9202436825169261223
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +386,6 @@ MonoBehaviour:
   fireRate: 60
   projectileSpeed: 1000
   projectileDamage: 10
-  inaccuracy: 0
 --- !u!1 &9202436825395432027
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +400,7 @@ GameObject:
   - component: {fileID: 9202436825395432025}
   - component: {fileID: 9202436825395432024}
   m_Layer: 0
-  m_Name: Fox
+  m_Name: Bear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,6 +420,7 @@ Transform:
   m_Children:
   - {fileID: 3661879239962925422}
   - {fileID: 9202436824399359446}
+  - {fileID: 2628145764132957189}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -285,11 +436,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809448566752b9045a24431ab008f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChassisName: Fox
+  ChassisName: Bear
   Description: 
-  BaseWeight: 80
-  WeightLimit: 220
-  HitPoints: 100
+  BaseWeight: 240
+  WeightLimit: 800
+  HitPoints: 400
   Amphibious: 0
   Hover: 0
   MoveType: 0
@@ -307,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponMounts:
   - {fileID: 9202436824399359447}
+  - {fileID: 3851719015092772000}
   _rotSpeed: 200
   _rotAccel: 600
   _maxSpeed: 600

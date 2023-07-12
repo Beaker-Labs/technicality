@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31173f0bfd57d840b3105961606b79f, type: 3}
   m_Name: LightArmor
   m_EditorClassIdentifier: 
-  itemName: LightArmor
+  itemName: Light Armor
   description: 
   weight: 10
+  cost: 50
   icon: {fileID: 0}
   Armor: 5
   HitPoints: 15

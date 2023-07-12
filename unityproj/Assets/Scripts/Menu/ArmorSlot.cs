@@ -1,19 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class ArmorSlot : ItemSlot
 {
-    private int _index;
-    private Vehicle _vehicle;
-
-    public void Initialize(Vehicle vehicle, int index)
-    {
-        _index = index;
-        _vehicle = vehicle;
-    }
+    public int index;
 
     protected override void GetSelection()
     {
@@ -22,9 +12,11 @@ public class ArmorSlot : ItemSlot
 
     private void SetContents(EquippableItem item)
     {
-        //Debug.Log($"Weaponslot has received the set item, {item.itemName}.");
-        if (item is not ArmorItem) throw new Exception("Tried to equip a non weapon to a weapon slot!");
+        Debug.Log($"ArmorSlot has received the set item, {item.itemName}.");
+        if (item is not ArmorItem) throw new Exception("Tried to equip a non armor to a armor slot!");
         
-        _vehicle.Armor[_index] = (ArmorItem)item;
+        GameInfo.Garage.GetActiveVehicle().Armor[index] = (ArmorItem)item;
+
+        GameInfo.Garage.RecalculateWeight();
     }
 }

@@ -18,8 +18,8 @@ public class Calendar : MonoBehaviour
     
     private List<TournamentSeries> _tournaments;
     private TournamentSeries _selectedTournament;
-    
-    
+
+
     void Awake()
     {
         GameInfo.Calendar = this;
@@ -94,5 +94,10 @@ public class Calendar : MonoBehaviour
         GameInfo.TournamentManager.SetupTournament(_selectedTournament, name);
         
         gameObject.SetActive(false);
+    }
+
+    public TournamentSeries GetSelectedTournament()
+    {
+        return _selectedTournament;
     }
 }

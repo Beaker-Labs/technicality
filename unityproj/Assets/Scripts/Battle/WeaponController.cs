@@ -11,6 +11,7 @@ public class WeaponController : MonoBehaviour
     [Header("Bullet Properties")]
     public float projectileSpeed;
     public int projectileDamage;
+    public float inaccuracy;
 
     private GameObject _bullet;
     private float _lastTimeFired;
@@ -29,6 +30,7 @@ public class WeaponController : MonoBehaviour
         {
             _lastTimeFired = Time.time;
             Projectile bulletClone = Instantiate(_bullet, transform.position, transform.rotation, GameInfo.GetBattleRoot()).GetComponent<Projectile>();
+            bulletClone.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(-inaccuracy, inaccuracy));
             bulletClone.speed = projectileSpeed;
             bulletClone.damage = projectileDamage;
             bulletClone.origin = _rigidbody;

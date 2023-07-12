@@ -31,4 +31,9 @@ public class Chassis : MonoBehaviour
     {
         _vehicleController = GetComponent<VehicleController>();
     }
+
+    public int WeaponMountsCount()
+    {
+        return GetComponent<VehicleController>().WeaponMounts.Count;
+    }
 }

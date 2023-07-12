@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0966f0878d9166049aff456a3194eaa7, type: 3}
-  m_Name: WhizmasterElectric
+  m_Script: {fileID: 11500000, guid: 7e2c3ecee6533f84da5c0d9691b42798, type: 3}
+  m_Name: DAK-111
   m_EditorClassIdentifier: 
-  itemName: Whizmaster Electric
+  itemName: DAK-111
   description: 
-  weight: 5
-  cost: 20
-  icon: {fileID: 0}
-  power: 40
+  weight: 20
+  cost: 50
+  icon: {fileID: 21300000, guid: 7b872cea843b8b64a9c61fdb856c9e6b, type: 3}
+  prefab: {fileID: 7681442168780949689, guid: c439ec7aa0e67ea408234dd6b9dc689f, type: 3}

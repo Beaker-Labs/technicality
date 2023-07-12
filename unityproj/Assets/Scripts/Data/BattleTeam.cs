@@ -20,4 +20,14 @@ public class BattleTeam
     {
         Vehicles = new List<Vehicle>();
     }
+
+    public int GetWeight()
+    {
+        int sum = 0;
+        foreach (Vehicle i in Vehicles)
+        {
+            sum += i.GetWeight();
+        }
+        return sum;
+    }
 }

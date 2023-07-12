@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d3c1b3921745b2c458a24d35449d6d90, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7b872cea843b8b64a9c61fdb856c9e6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7661130171887133370}
   - component: {fileID: 295756752319194358}
   m_Layer: 0
-  m_Name: NormalGun
+  m_Name: DAK-111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58bd9df319074f458215704c6eac2484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 85
-  projectileSpeed: 800
-  projectileDamage: 20
-  inaccuracy: 0
+  fireRate: 260
+  projectileSpeed: 600
+  projectileDamage: 5
+  inaccuracy: 5

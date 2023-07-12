@@ -32,12 +32,17 @@ public class VehicleController : MonoBehaviour
     private List<WeaponMount> _weapons;
     private Camera _mainCam;
 
-    void Start()
+    public void Initialize(Vehicle loadout)
     {
+        _loadout = loadout;
         _chassis = GetComponent<Chassis>();
-        _hitPoints = _chassis.HitPoints;
+        _hitPoints = _loadout.GetMaxHitPoints();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _weapons = GetComponentsInChildren<WeaponMount>().ToList();
+    }
+
+    void Start()
+    {
         _mainCam = Camera.main;
     }
 
@@ -124,7 +129,17 @@ public class VehicleController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _hitPoints -= damage;
+        if (_hitPoints <= 0) return;
+        
+        if (_loadout.Armor[0] != null)
+        {
+            _hitPoints -= (damage - _loadout.Armor[0].Armor);
+        }
+        else
+        {
+            _hitPoints -= damage;
+        }
+        
         if(_hitPoints <= 0)
         {
             Debug.Log($"{name} has died :(");
@@ -161,5 +176,10 @@ public class VehicleController : MonoBehaviour
     private void DetectWeaponMounts()
     {
         WeaponMounts = GetComponentsInChildren<WeaponMount>().ToList();
+    }
+
+    public int GetMaxHitPoints()
+    {
+        return _loadout.GetMaxHitPoints();
     }
 }

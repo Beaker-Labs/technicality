@@ -10,8 +10,11 @@ public class Vehicle
     public Chassis Chassis;
     public List<WeaponItem> Weapons;
     public List<ArmorItem> Armor;
+    public List<ModuleItem> Modules;
+    public EngineItem Engine;
     public bool PlayerControlled;
     public string ChassisID = "Fox";
+    public bool Selected; // only used in the garage to determine which vehicles you're bringing to the next event
     //public List<ModItem> Mods;
     //public Pilot Pilot;
 
@@ -19,14 +22,42 @@ public class Vehicle
     {
         Chassis = GetChassis();
         Weapons = new List<WeaponItem>();
-        Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+        for (int i = 0; i < Chassis.WeaponMountsCount(); i++)
+        {
+            Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+        }
+
+        Armor = new List<ArmorItem>();
+        for (int i = 0; i < 4; i++)
+        {
+            Armor.Add(new ArmorItem());
+        }
+
+        Modules = new List<ModuleItem>();
+
+        Engine = null;
     }
 
     public Vehicle(Chassis chassis)
     {
         Chassis = chassis;
         Weapons = new List<WeaponItem>();
-        Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+        for (int i = 0; i < Chassis.WeaponMountsCount(); i++)
+        {
+            Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+        }
+        
+        Armor = new List<ArmorItem>();
+        for (int i = 0; i < 4; i++)
+        {
+            Armor.Add(new ArmorItem());
+        }
+        
+        Modules = new List<ModuleItem>();
+
+        Engine = null;
+
+        Selected = true;
     }
 
     public Chassis GetChassis()
@@ -37,6 +68,7 @@ public class Vehicle
     public GameObject Spawn(Transform parent, Vector3 position = new Vector3())
     {
         VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject, parent).GetComponent<VehicleController>();
+        spawnedVehicle.Initialize(this);
         spawnedVehicle.transform.localPosition = position;
         spawnedVehicle.SetDriver(PlayerControlled); // Replace this with some method of actually loading an AI
         // load weapons
@@ -59,20 +91,58 @@ public class Vehicle
     public GameObject SpawnEditMode(Transform parent)
     {
         VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject, parent).GetComponent<VehicleController>();
+        spawnedVehicle.Initialize(this);
         spawnedVehicle.transform.localScale = Vector3.one * 2;
         // load weapons
         List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
 
-        for (int i = 0; i < Weapons.Count; i++)
+        for (int i = 0; i < weaponMounts.Count; i++)
         {
             WeaponSlot ws = Object.Instantiate(GameInfo.WeaponSlotPrefab, spawnedVehicle.transform).GetComponent<WeaponSlot>();
             ws.Initialize(this, i);
 
-            if (Weapons[i] != null)
+            if (i < Weapons.Count && Weapons[i] != null)
             {
                 weaponMounts[i].SetWeapon(Weapons[i].prefab);
             }
         }
         return spawnedVehicle.gameObject;
+    }
+
+    public int GetWeight()
+    {
+        int weight = 0;
+        weight += Chassis.BaseWeight;
+        foreach (WeaponItem i in Weapons)
+        {
+            weight += i.weight;
+        }
+        foreach (ArmorItem i in Armor)
+        {
+            weight += i.weight;
+        }
+        foreach (ModuleItem i in Modules)
+        {
+            weight += i.weight;
+        }
+
+        if (Engine != null) weight += Engine.weight;
+
+        return weight;
+    }
+
+    public int GetMaxHitPoints()
+    {
+        int total = 0;
+        total += Chassis.HitPoints;
+        foreach (ArmorItem i in Armor)
+        {
+            if (i != null)
+            {
+                total += i.HitPoints;
+            }
+        }
+
+        return total;
     }
 }

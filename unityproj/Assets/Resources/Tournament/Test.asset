@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Test
   Description: Test Tourney
   Stages: 020000000300000004000000
-  WeightLimit: 150
+  WeightLimit: 400
   WeightLimitPerVehicle: 0
   TeamSizeMax: 5
   TeamSizeMin: 2
@@ -24,3 +24,4 @@ MonoBehaviour:
   Entries:
   - Name: Test, January
     Month: 1
+  Arena: {fileID: 0}

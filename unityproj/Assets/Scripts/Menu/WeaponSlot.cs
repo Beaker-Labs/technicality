@@ -29,5 +29,7 @@ public class WeaponSlot : ItemSlot
         
         _vehicle.Weapons[_index] = (WeaponItem)item;
         GameInfo.Garage.activeVehicleInstance.WeaponMounts[_index].SetWeapon(((WeaponItem)item).prefab);
+        
+        GameInfo.Garage.RecalculateWeight();
     }
 }
