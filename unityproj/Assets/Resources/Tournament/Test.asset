@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Test
   Description: Test Tourney
-  Stages: 020000000300000004000000
+  Stages: 02000000020000000200000003000000
   WeightLimit: 400
   WeightLimitPerVehicle: 0
-  TeamSizeMax: 5
-  TeamSizeMin: 2
+  TeamSizeMax: 0
+  TeamSizeMin: 0
   EntryFee: 77
   Prize: 1000
   Entries:
   - Name: Test, January
     Month: 1
-  Arena: {fileID: 0}
+  Arena: {fileID: 501503427385272462, guid: 1cf5ec6c81290d04d8e3cf79b61c4069, type: 3}

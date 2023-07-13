@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 // Data type which can be edited in the garage, saved, loaded, and passed to the BattleManager to be instanced
 public class Vehicle
@@ -9,10 +10,11 @@ public class Vehicle
     public string Name = "Fox";
     public Chassis Chassis;
     public List<WeaponItem> Weapons;
-    public List<ArmorItem> Armor;
+    //public List<ArmorItem> Armor;
+    public ArmorItem Armor;
     public List<ModuleItem> Modules;
     public EngineItem Engine;
-    public bool PlayerControlled;
+    public int Driver;
     public string ChassisID = "Fox";
     public bool Selected; // only used in the garage to determine which vehicles you're bringing to the next event
     //public List<ModItem> Mods;
@@ -20,22 +22,26 @@ public class Vehicle
 
     public Vehicle()
     {
-        Chassis = GetChassis();
+        Chassis = GameInfo.Chassis[Random.Range(0, GameInfo.Chassis.Count)];
         Weapons = new List<WeaponItem>();
         for (int i = 0; i < Chassis.WeaponMountsCount(); i++)
         {
-            Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+            //Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
+            Weapons.Add(GameInfo.Weapons[Random.Range(0, GameInfo.Weapons.Count)]);
         }
 
-        Armor = new List<ArmorItem>();
-        for (int i = 0; i < 4; i++)
-        {
-            Armor.Add(new ArmorItem());
-        }
+        //Armor = new List<ArmorItem>();
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     Armor.Add(GameInfo.Armors[Random.Range(0, GameInfo.Armors.Count)]);
+        // }
+        Armor = GameInfo.Armors[Random.Range(0, GameInfo.Armors.Count)];
 
         Modules = new List<ModuleItem>();
 
-        Engine = null;
+        Engine = GameInfo.Engines[Random.Range(0, GameInfo.Engines.Count)];
+
+        Driver = Random.Range(1, 5);
     }
 
     public Vehicle(Chassis chassis)
@@ -47,17 +53,20 @@ public class Vehicle
             Weapons.Add(Resources.Load<WeaponItem>($"Item/Weapon/TestGun"));
         }
         
-        Armor = new List<ArmorItem>();
-        for (int i = 0; i < 4; i++)
-        {
-            Armor.Add(new ArmorItem());
-        }
+        // Armor = new List<ArmorItem>();
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     Armor.Add(new ArmorItem());
+        // }
+        Armor = GameInfo.Armors[Random.Range(0, GameInfo.Armors.Count)];
         
         Modules = new List<ModuleItem>();
 
-        Engine = null;
+        Engine = GameInfo.Engines[Random.Range(0, GameInfo.Engines.Count)];
 
         Selected = true;
+
+        Driver = 0;
     }
 
     public Chassis GetChassis()
@@ -70,7 +79,6 @@ public class Vehicle
         VehicleController spawnedVehicle = Object.Instantiate(Chassis.gameObject, parent).GetComponent<VehicleController>();
         spawnedVehicle.Initialize(this);
         spawnedVehicle.transform.localPosition = position;
-        spawnedVehicle.SetDriver(PlayerControlled); // Replace this with some method of actually loading an AI
         // load weapons
         List<WeaponMount> weaponMounts = spawnedVehicle.WeaponMounts;
         if (weaponMounts.Count != Weapons.Count)
@@ -117,10 +125,11 @@ public class Vehicle
         {
             weight += i.weight;
         }
-        foreach (ArmorItem i in Armor)
-        {
-            weight += i.weight;
-        }
+        // foreach (ArmorItem i in Armor)
+        // {
+        //     weight += i.weight;
+        // }
+        weight += Armor.weight;
         foreach (ModuleItem i in Modules)
         {
             weight += i.weight;
@@ -135,13 +144,14 @@ public class Vehicle
     {
         int total = 0;
         total += Chassis.HitPoints;
-        foreach (ArmorItem i in Armor)
-        {
-            if (i != null)
-            {
-                total += i.HitPoints;
-            }
-        }
+        // foreach (ArmorItem i in Armor)
+        // {
+        //     if (i != null)
+        //     {
+        //         total += i.HitPoints;
+        //     }
+        // }
+        total += Armor.HitPoints;
 
         return total;
     }

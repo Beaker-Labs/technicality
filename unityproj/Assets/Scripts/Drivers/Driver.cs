@@ -28,6 +28,8 @@ public abstract class Driver
         {
             if (vehicle == Parent) continue;
 
+            if (!vehicle.IsAlive()) continue;
+
             float distance = Vector3.Distance(Parent.transform.position, vehicle.transform.position);
 
             if (distance < shortestDistance)
@@ -38,6 +40,14 @@ public abstract class Driver
         }
 
         return nearestVehicle;
+    }
+
+    protected void DriveTowards(Vector3 destination)
+    {
+        Vector3 destDir = Vector3.Normalize(destination - Parent.transform.position);
+        Vector3 crossDestDir = Vector3.Cross(destDir, Vector3.forward);
+        Steer = Vector3.Dot(crossDestDir, Parent.transform.up);
+        Throttle = Vector3.Dot(destDir, Parent.transform.up);
     }
 
     public abstract void Update();

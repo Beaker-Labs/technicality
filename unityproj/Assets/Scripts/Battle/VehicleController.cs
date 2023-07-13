@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 // This is the root controller script for vehicles.
@@ -12,11 +13,11 @@ public class VehicleController : MonoBehaviour
 
     [Header("Placeholder Stat overrides")]
     // Serialization of these is a placeholder, they will eventually be determined by chassis and equipment
-    [SerializeField] private float _rotSpeed = 200;
-    [SerializeField] private float _rotAccel = 500;
-    [SerializeField] private float _maxSpeed = 50;
-    [SerializeField] private float _accel = 10;
-    [SerializeField] private float _friction = 30;
+    private float _rotSpeed = 200;
+    private float _rotAccel = 600;
+    private float _maxSpeed = 600;
+    private float _accel = 200;
+    private float _friction = 400;
 
     // [HideInInspector]public bool isPlayerControlled;
     
@@ -39,6 +40,32 @@ public class VehicleController : MonoBehaviour
         _hitPoints = _loadout.GetMaxHitPoints();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _weapons = GetComponentsInChildren<WeaponMount>().ToList();
+        
+        switch (_loadout.Driver)
+        {
+            case 0:
+                _driver = new PlayerControlledDriver(this);
+                break;
+            case 1:
+                _driver = new ErraticDriver(this);
+                break;
+            case 2:
+                _driver = new AggressiveDriver(this);
+                break;
+            case 3:
+                _driver = new RandomDriver(this);
+                break;
+            case 4:
+                _driver = new FlankingDriver(this);
+                break;
+        }
+
+        float speedFactor = (float)_loadout.Engine.power / _loadout.GetWeight();
+        _rotSpeed *= speedFactor;
+        _rotAccel *= speedFactor;
+        _maxSpeed *= speedFactor;
+        _accel *= speedFactor;
+        _friction *= speedFactor;
     }
 
     void Start()
@@ -46,10 +73,17 @@ public class VehicleController : MonoBehaviour
         _mainCam = Camera.main;
     }
 
-    public void SetDriver(bool playerControlled)
-    {
-        _driver = playerControlled ? new PlayerControlledDriver(this) : new ErraticDriver(this);
-    }
+    // public void SetDriver(bool playerControlled)
+    // {
+    //     if (playerControlled)
+    //     {
+    //         _driver = new PlayerControlledDriver(this);
+    //         return;
+    //     }
+    //
+    //
+    //     _driver = playerControlled ? new PlayerControlledDriver(this) : new RandomDriver(this);
+    // }
 
     // Update is called once per frame
     void Update()
@@ -131,15 +165,8 @@ public class VehicleController : MonoBehaviour
     {
         if (_hitPoints <= 0) return;
         
-        if (_loadout.Armor[0] != null)
-        {
-            _hitPoints -= (damage - _loadout.Armor[0].Armor);
-        }
-        else
-        {
-            _hitPoints -= damage;
-        }
-        
+        _hitPoints -= math.max(1, damage - _loadout.Armor.Armor);
+
         if(_hitPoints <= 0)
         {
             Debug.Log($"{name} has died :(");
@@ -161,6 +188,11 @@ public class VehicleController : MonoBehaviour
     {
         _active = true;
     }
+
+    public void Deactivate()
+    {
+        _active = false;
+    }
     
     public void ActivateEditMode()
     {
@@ -181,5 +213,10 @@ public class VehicleController : MonoBehaviour
     public int GetMaxHitPoints()
     {
         return _loadout.GetMaxHitPoints();
+    }
+
+    public Vehicle GetLoadout()
+    {
+        return _loadout;
     }
 }

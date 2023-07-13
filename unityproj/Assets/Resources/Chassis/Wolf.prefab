@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e991dc66826c45144aa5baf8c6535ee7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2668b8115af00c42b92b6d1d2d99825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   size: 1
   turnRate: 200
   offset: 0
-  fullRotation: 0
+  fullRotation: 1
   rotationLimitMin: -160
   rotationLimitMax: 160
 --- !u!1 &9202436825169261223
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 9202436825395432025}
   - component: {fileID: 9202436825395432024}
   m_Layer: 0
-  m_Name: Wolverine
+  m_Name: Wolf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,11 +285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809448566752b9045a24431ab008f730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChassisName: Wolverine
+  ChassisName: Wolf
   Description: 
-  BaseWeight: 120
+  BaseWeight: 140
   WeightLimit: 300
-  HitPoints: 200
+  HitPoints: 220
   Amphibious: 0
   Hover: 0
   MoveType: 0
@@ -307,11 +307,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponMounts:
   - {fileID: 9202436824399359447}
-  _rotSpeed: 200
-  _rotAccel: 600
-  _maxSpeed: 600
-  _accel: 200
-  _friction: 400
 --- !u!50 &9202436825395432025
 Rigidbody2D:
   serializedVersion: 4
@@ -346,7 +341,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.4}
+  m_Offset: {x: 0, y: 0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -357,5 +352,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 80.83, y: 118.8}
+  m_Size: {x: 74.91, y: 122.2}
   m_EdgeRadius: 0

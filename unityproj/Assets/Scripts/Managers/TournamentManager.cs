@@ -49,7 +49,7 @@ public class TournamentManager : MonoBehaviour
         {
             _nextMatch.Entrants[0].Winner.PlayerControlled = true;
             _nextMatch.Entrants[0].Winner.Vehicles = GameInfo.Campaign.GetBattleTeam().Vehicles;
-            _nextMatch.Entrants[0].Winner.Vehicles[0].PlayerControlled = true;
+            _nextMatch.Entrants[0].Winner.Vehicles[0].Driver = 0; // Unnecessary, remove?
             _nextMatch.Entrants[0].Winner.Name = GameInfo.Campaign.TeamName;
         }
         else

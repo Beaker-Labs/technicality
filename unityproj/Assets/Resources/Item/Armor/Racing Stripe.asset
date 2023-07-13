@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0966f0878d9166049aff456a3194eaa7, type: 3}
-  m_Name: WhizmasterElectric
+  m_Script: {fileID: 11500000, guid: c31173f0bfd57d840b3105961606b79f, type: 3}
+  m_Name: Racing Stripe
   m_EditorClassIdentifier: 
-  itemName: Whizmaster Electric
+  itemName: Racing Stripe
   description: 
-  weight: 5
-  cost: 20
+  weight: -30
+  cost: 100
   icon: {fileID: 0}
-  power: 80
+  Armor: 0
+  HitPoints: -10

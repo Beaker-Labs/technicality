@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChassisName: Fox
   Description: 
-  BaseWeight: 80
+  BaseWeight: 40
   WeightLimit: 220
   HitPoints: 100
   Amphibious: 0

@@ -130,5 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 120
-  projectileSpeed: 1000
-  projectileDamage: 100
+  projectileSpeed: 1500
+  projectileDamage: 80
+  inaccuracy: 0

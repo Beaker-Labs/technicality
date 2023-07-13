@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0966f0878d9166049aff456a3194eaa7, type: 3}
-  m_Name: WhizmasterElectric
+  m_Name: Brap 150
   m_EditorClassIdentifier: 
   itemName: Whizmaster Electric
   description: 
-  weight: 5
-  cost: 20
+  weight: 10
+  cost: 40
   icon: {fileID: 0}
-  power: 80
+  power: 150

@@ -15,7 +15,8 @@ public class ArmorSlot : ItemSlot
         Debug.Log($"ArmorSlot has received the set item, {item.itemName}.");
         if (item is not ArmorItem) throw new Exception("Tried to equip a non armor to a armor slot!");
         
-        GameInfo.Garage.GetActiveVehicle().Armor[index] = (ArmorItem)item;
+        // GameInfo.Garage.GetActiveVehicle().Armor[index] = (ArmorItem)item;
+        GameInfo.Garage.GetActiveVehicle().Armor = (ArmorItem)item;
 
         GameInfo.Garage.RecalculateWeight();
     }

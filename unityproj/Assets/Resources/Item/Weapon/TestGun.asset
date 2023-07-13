@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Test Gun
   description: 
-  weight: 30
+  weight: 60
+  cost: 0
   icon: {fileID: 0}
   prefab: {fileID: 7681442168780949689, guid: 841cb1855f685b84a89e61e14ad2a315, type: 3}

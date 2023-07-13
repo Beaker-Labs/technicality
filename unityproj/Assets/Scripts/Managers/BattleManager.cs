@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using Unity;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class BattleManager : MonoBehaviour
     private List<List<VehicleController>> _spawnedVehicles;
     private Arena _arena;
 
-    private Transform _battleRoot; // transform which is parent to everything that can be deleted once the battle is over 
+    private Transform _battleRoot; // parent to everything that can be deleted once the battle is over 
     private int _winnerIndex;
     private bool _battleReportActive;
     private string _winText = "";
@@ -50,19 +51,26 @@ public class BattleManager : MonoBehaviour
 
     private void OnGUI()
     {
-        if (_winnerIndex == -1)
+        if (_winnerIndex == -1 || _battleReportActive)
         {
             GUILayout.BeginArea(new Rect(10, 10, 200, 400));
             GUILayout.BeginVertical("Battle Info", GUI.skin.box);
-            GUILayout.Space(20);
             for (int i = 0; i < _teams.Count; i++)
             {
-                GUILayout.Label($"Team {_teams[i].Name}");
+                string tInfo = $"\nTeam {_teams[i].Name}";
                 for (int j = 0; j < _spawnedVehicles[i].Count; j++)
                 {
-                    GUILayout.Label($"  {_spawnedVehicles[i][j].name}, {_spawnedVehicles[i][j].GetHitPoints()}/{_spawnedVehicles[i][j].GetMaxHitPoints()}");
+                    VehicleController v = _spawnedVehicles[i][j];
+                    tInfo += $"\n  {v.name}, {v.GetHitPoints()}/{v.GetMaxHitPoints()}\n" +
+                             $"  Driver: {v.GetLoadout().Driver}\n" +
+                             $"  Armor: {v.GetLoadout().Armor.name}\n" +
+                             $"  Engine: {v.GetLoadout().Engine.name}";
                 }
-                GUILayout.Space(10);
+                GUILayout.Label(tInfo);
+                if (GUILayout.Button($"{_teams[i].Name} wins"))
+                {
+                    EndBattle(i, $"Match Complete!\n\nYou ended the match early, declaring {_teams[i].Name} the winner.");
+                }
             }
             GUILayout.EndVertical();
             GUILayout.EndArea();
@@ -70,8 +78,8 @@ public class BattleManager : MonoBehaviour
         
         if (_battleReportActive)
         {
-            GUI.Box(new Rect(Screen.width/2-100, Screen.height/2-200, 200, 400), _winText);
-            if (GUI.Button(new Rect(Screen.width/2-40, Screen.width/2+20, 80, 20), "Continue"))
+            GUI.Box(new Rect(Screen.width/2-100, Screen.height/2-100, 200, 200), _winText);
+            if (GUI.Button(new Rect(Screen.width/2-40, Screen.height/2+20, 80, 20), "Continue"))
             {
                 GameInfo.CloseLoadingDoors(LoadTournamentScene);
                 _battleReportActive = false;
@@ -106,17 +114,12 @@ public class BattleManager : MonoBehaviour
 
         if (teamsAlive == 0)
         {
-            Debug.Log("Something's gone wrong, All teams are dead. Declaring team 0 the winner");
-            _winText = "Something's gone wrong, All teams are dead. Declaring team 0 the winner";
-            _winnerIndex = 0;
-            _battleReportActive = true;
+            EndBattle(0, "Something's gone wrong, All teams are dead. Declaring team 0 the winner");
         }
 
         if (teamsAlive == 1)
         {
-            _winText = $"Match Complete!\n\nThe winner is:\n{_teams[winningTeam].Name}";
-            _winnerIndex = winningTeam;
-            _battleReportActive = true;
+            EndBattle(winningTeam, $"Match Complete!\n\nThe winner is:\n{_teams[winningTeam].Name}");
         }
     }
 
@@ -147,6 +150,21 @@ public class BattleManager : MonoBehaviour
                 _spawnedVehicles[i].Add(g.GetComponent<VehicleController>());
                 _spawnedVehicles[i][j].transform.position = _arena.spawnPoints[i].position;
                 // _spawnedVehicles[i][j].Initialize(_teams[i].Vehicles[j]);
+            }
+        }
+    }
+
+    private void EndBattle(int winner, string message)
+    {
+        Debug.Log(message);
+        _winText = message;
+        _winnerIndex = winner;
+        _battleReportActive = true;
+        foreach (List<VehicleController> l in _spawnedVehicles)
+        {
+            foreach (VehicleController v in l)
+            {
+                v.Deactivate();
             }
         }
     }
