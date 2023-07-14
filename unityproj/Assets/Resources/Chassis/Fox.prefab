@@ -132,7 +132,7 @@ MonoBehaviour:
   size: 1
   turnRate: 200
   offset: 0
-  fullRotation: 0
+  fullRotation: 1
   rotationLimitMin: -90
   rotationLimitMax: 90
 --- !u!1 &9202436825169261223
@@ -236,6 +236,7 @@ MonoBehaviour:
   projectileSpeed: 1000
   projectileDamage: 10
   inaccuracy: 0
+  range: 0
 --- !u!1 &9202436825395432027
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,11 +308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponMounts:
   - {fileID: 9202436824399359447}
-  _rotSpeed: 200
-  _rotAccel: 600
-  _maxSpeed: 600
-  _accel: 200
-  _friction: 400
 --- !u!50 &9202436825395432025
 Rigidbody2D:
   serializedVersion: 4

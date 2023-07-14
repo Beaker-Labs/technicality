@@ -12,6 +12,7 @@ public class WeaponController : MonoBehaviour
     public float projectileSpeed;
     public int projectileDamage;
     public float inaccuracy;
+    public float range;
 
     private GameObject _bullet;
     private float _lastTimeFired;
@@ -34,6 +35,7 @@ public class WeaponController : MonoBehaviour
             bulletClone.speed = projectileSpeed;
             bulletClone.damage = projectileDamage;
             bulletClone.origin = _rigidbody;
+            bulletClone.range = range + Random.Range(-range * 0.5f, range * 0.5f);
         }
     }
 }

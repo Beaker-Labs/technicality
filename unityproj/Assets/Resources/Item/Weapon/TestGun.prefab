@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58bd9df319074f458215704c6eac2484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 120
+  fireRate: 60
   projectileSpeed: 1500
-  projectileDamage: 80
+  projectileDamage: 75
   inaccuracy: 0
+  range: 1800

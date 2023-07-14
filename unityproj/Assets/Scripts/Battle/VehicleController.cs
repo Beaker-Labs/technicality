@@ -26,7 +26,7 @@ public class VehicleController : MonoBehaviour
     private bool _active;
 
     private Driver _driver;
-
+    
     private Vehicle _loadout;
     private Chassis _chassis;
     private Rigidbody2D _rigidbody2D;

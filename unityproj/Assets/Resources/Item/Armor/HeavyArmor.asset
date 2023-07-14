@@ -17,5 +17,5 @@ MonoBehaviour:
   weight: 35
   cost: 100
   icon: {fileID: 0}
-  Armor: 30
+  Armor: 15
   HitPoints: 15

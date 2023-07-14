@@ -92,7 +92,6 @@ public class Vehicle
                 weaponMounts[i].SetWeapon(Weapons[i].prefab);
             }
         }
-        spawnedVehicle.Activate();
         return spawnedVehicle.gameObject;
     }
 

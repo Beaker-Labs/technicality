@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c31173f0bfd57d840b3105961606b79f, type: 3}
-  m_Name: MediumArmor
+  m_Name: ChassisReinforcement
   m_EditorClassIdentifier: 
-  itemName: Medium Armor
-  description: 
+  itemName: Chassis Reinforcement
+  description: Provides little impact resistance, but significant gains in overall
+    durability
   weight: 20
   cost: 75
   icon: {fileID: 0}
-  Armor: 10
-  HitPoints: 20
+  Armor: 0
+  HitPoints: 120

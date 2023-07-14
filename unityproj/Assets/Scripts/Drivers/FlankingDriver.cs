@@ -13,6 +13,8 @@ public class FlankingDriver : Driver
         TargetSet = true;
         Target = targettedEnemy.transform.position;
         Fire = true;
-        DriveTowards(200 * Vector3.Cross(Vector3.forward, Vector3.Normalize(Target - Parent.transform.position)));
+        Vector3 destination = Target + 200 * Vector3.Cross(Vector3.forward, Vector3.Normalize(Target - Parent.transform.position));
+        DriveTowards(destination);
+        //Debug.DrawLine(Parent.transform.position, destination, Color.blue, 0.025f);
     }
 }

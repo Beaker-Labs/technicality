@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48ac8124d3dcc67499438b64b02c2ae4, type: 3}
-  m_Name: Test
+  m_Name: Fours
   m_EditorClassIdentifier: 
-  Name: Test
-  Description: Test Tourney
-  Stages: 0200000002000000020000000200000002000000
+  Name: Chaotic Fours
+  Description: Four entrants in every match!
+  Stages: 040000000400000004000000
   WeightLimit: 400
   WeightLimitPerVehicle: 0
   TeamSizeMax: 0
   TeamSizeMin: 0
   EntryFee: 77
-  Prize: 1000
+  Prize: 1200
   Entries:
-  - Name: Test, January
+  - Name: Chaotic Fours
     Month: 1
   Arena: {fileID: 501503427385272462, guid: 1cf5ec6c81290d04d8e3cf79b61c4069, type: 3}

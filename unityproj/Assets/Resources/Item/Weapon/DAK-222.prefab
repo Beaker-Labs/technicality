@@ -219,6 +219,7 @@ MonoBehaviour:
   projectileSpeed: 1000
   projectileDamage: 15
   inaccuracy: 10
+  range: 800
 --- !u!1 &7827759722620851036
 GameObject:
   m_ObjectHideFlags: 0

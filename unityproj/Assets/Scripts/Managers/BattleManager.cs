@@ -13,12 +13,14 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public GameObject placeholderVehicle;
+    private Match _match;
     private List<BattleTeam> _teams;
     private List<List<VehicleController>> _spawnedVehicles;
     private Arena _arena;
 
     private Transform _battleRoot; // parent to everything that can be deleted once the battle is over 
     private int _winnerIndex;
+    private bool _previewPanel;
     private bool _battleReportActive;
     private string _winText = "";
     
@@ -38,6 +40,7 @@ public class BattleManager : MonoBehaviour
     void OnEnable()
     {
         _winnerIndex = -1;
+        _previewPanel = false;
         _battleReportActive = false;
     }
 
@@ -51,9 +54,24 @@ public class BattleManager : MonoBehaviour
 
     private void OnGUI()
     {
+        if (_previewPanel)
+        {
+            GUILayout.BeginArea(new Rect(Screen.width/2-100, Screen.height/2-100, 200, 400));
+            GUILayout.BeginVertical(GUI.skin.box);
+            GUILayout.Label(_match.GetMatchName());
+            GUILayout.Space(20);
+            //GUILayout.Label("");
+            if (GUILayout.Button("\nActivate!\n"))
+            {
+                StartMatch();
+            }
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+        }
+        
         if (_winnerIndex == -1 || _battleReportActive)
         {
-            GUILayout.BeginArea(new Rect(10, 10, 200, 400));
+            GUILayout.BeginArea(new Rect(10, 10, 200, 600));
             GUILayout.BeginVertical("Battle Info", GUI.skin.box);
             for (int i = 0; i < _teams.Count; i++)
             {
@@ -78,12 +96,17 @@ public class BattleManager : MonoBehaviour
         
         if (_battleReportActive)
         {
-            GUI.Box(new Rect(Screen.width/2-100, Screen.height/2-100, 200, 200), _winText);
-            if (GUI.Button(new Rect(Screen.width/2-40, Screen.height/2+20, 80, 20), "Continue"))
+            GUILayout.BeginArea(new Rect(Screen.width/2-100, Screen.height/2-100, 200, 400));
+            GUILayout.BeginVertical(GUI.skin.box);
+            GUILayout.Label(_winText);
+            GUILayout.Space(20);
+            if (GUILayout.Button("\nOK\n"))
             {
                 GameInfo.CloseLoadingDoors(LoadTournamentScene);
                 _battleReportActive = false;
             }
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
         }
     }
 
@@ -123,8 +146,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void StartMatch(Match match, GameObject arena)
+    public void SetupMatch(Match match, GameObject arena)
     {
+        _match = match;
+        _winnerIndex = -1;
+        _previewPanel = true;
+        _battleReportActive = false;
         _battleRoot = new GameObject("battleRoot").transform;
         _battleRoot.parent = transform;
         _teams = match.GetMatchEntrantTeams();
@@ -133,6 +160,18 @@ public class BattleManager : MonoBehaviour
         _mainCamera.orthographicSize = 720;
 
         SpawnTeams();
+    }
+
+    public void StartMatch()
+    {
+        _previewPanel = false;
+        foreach (List<VehicleController> i in _spawnedVehicles)
+        {
+            foreach (VehicleController j in i)
+            {
+                j.Activate();
+            }
+        }
     }
 
     // UNFINISHED, probably not ready for multi vehicle teams

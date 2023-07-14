@@ -8,15 +8,19 @@ public class Projectile : MonoBehaviour
     public Rigidbody2D rb;
     public float speed;
     public int damage;
+    public float range;
     public Rigidbody2D origin;
 
     private Vector3 _lastPos;
+    private Vector3 _startPos;
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = (transform.up * speed);
         _lastPos = transform.position;
+        _startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -37,6 +41,12 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
+        }
+
+        if (Vector3.Distance(transform.position, _startPos) > range)
+        {
+            Destroy(gameObject);
+            return;
         }
 
         _lastPos = transform.position;

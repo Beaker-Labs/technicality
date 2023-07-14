@@ -15,6 +15,10 @@ public class TournamentManager : MonoBehaviour
     public TextMeshProUGUI NextMatchTitleText;
     public Button NextMatchButton;
     public TextMeshProUGUI NextMatchButtonText;
+
+    private string _betMessage;
+    private int _betTeam;
+    private int _betSize;
     
 
     void Awake()
@@ -69,6 +73,34 @@ public class TournamentManager : MonoBehaviour
         
     }
 
+    private void OnGUI()
+    {
+        GUILayout.BeginArea(new Rect(Screen.width-210, 10, 200, 600));
+        GUILayout.BeginVertical("Betting", GUI.skin.box);
+        GUILayout.Space(20);
+        GUILayout.Label(_betMessage);
+        GUILayout.Label($"Your Cash: {GameInfo.Campaign.Cash}");
+        for (int i = 0; i < _nextMatch.Entrants.Count; i++)
+        {
+            string tInfo = $"Team {_nextMatch.Entrants[i].Winner.Name}";
+            // GUILayout.Label(tInfo);
+
+            if (GUILayout.Toggle(_betTeam == i, tInfo))
+            {
+                _betTeam = i;
+            }
+        }
+
+        if (GUILayout.Button("Increase Bet"))
+        {
+            _betSize += 100;
+        }
+        
+        GUILayout.Label($"Final Bet:\n{_betSize} on {_nextMatch.Entrants[_betTeam].Winner.Name}");
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+
     public void StartNextMatch()
     {
         if (_bracket.Winner != null)
@@ -88,6 +120,27 @@ public class TournamentManager : MonoBehaviour
     // is called by battlemanager when a match finishes
     public void MatchWon(int winnerIndex)
     {
+        if (_betSize > 0)
+        {
+            if (_betTeam == winnerIndex)
+            {
+                _betMessage = $"Wow! you won ${_betSize} on the last match!";
+                GameInfo.Campaign.Cash += _betSize;
+            }
+            else
+            {
+                _betMessage = $"you lost ${_betSize} on the last match, but I'm sure you'll win it all back this time.";
+                GameInfo.Campaign.Cash -= _betSize;
+            }
+        }
+        else
+        {
+            _betMessage = $"Try your luck! I've got a good feeling about [team]!";
+        }
+
+        _betSize = 0;
+        _betTeam = 0;
+        
         Debug.Log($"MatchWon({winnerIndex})");
         _nextMatch.Winner = _nextMatch.Entrants[winnerIndex].Winner;
         if (_nextMatch == _bracket)
@@ -127,6 +180,6 @@ public class TournamentManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         GameInfo.BattleManager.gameObject.SetActive(true);
-        GameInfo.BattleManager.StartMatch(_nextMatch, _template.Arena);
+        GameInfo.BattleManager.SetupMatch(_nextMatch, _template.Arena);
     }
 }
