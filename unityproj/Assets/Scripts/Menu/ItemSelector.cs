@@ -12,6 +12,7 @@ public class ItemSelector : MonoBehaviour
     
     public void Show(Type itemType, Action<EquippableItem> setItemCallback)
     {
+        Hide();
         _setItemCallback = setItemCallback;
         gameObject.SetActive(true);
         
