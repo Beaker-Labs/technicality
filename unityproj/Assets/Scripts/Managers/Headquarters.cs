@@ -9,9 +9,11 @@ public class Headquarters : MonoBehaviour
     public TextMeshProUGUI cashText;
 
     private BattleTeam _battleTeam = new BattleTeam();
+    private Canvas _canvas;
     
     void Awake()
     {
+        _canvas = GetComponent<Canvas>();
         GameInfo.Headquarters = this;
         gameObject.SetActive(false);
     }

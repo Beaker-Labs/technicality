@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: stretch; justify-content: center;">
+        <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; width: 200px; height: auto; align-items: stretch; right: auto; left: auto; align-self: center; top: auto; position: absolute; bottom: auto;">
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="PlayButton" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="GAME TITLE HERE" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; top: -200px; font-size: 40px; -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=3049a14458abe2a4b8474c3e23dfb0e3&amp;type=3#NotInter-Regular&apos;); -unity-text-outline-width: 0; -unity-text-outline-color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

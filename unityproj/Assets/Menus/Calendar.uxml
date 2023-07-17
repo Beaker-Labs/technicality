@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.5); flex-shrink: 1; width: 50%; max-width: 50%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+                <ui:Label tabindex="-1" text="NAME OF TOURNAMENT" display-tooltip-when-elided="true" name="TournamentName" style="font-size: 30px; -unity-text-align: upper-center;" />
+                <ui:Label tabindex="-1" text="TEXT containing newline?&#10;WOW NEW LINING&#10;Description of selected tournament&#10;Description of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournamentDescription of selected tournament&#10;Description of selected tournament&#10;Description of selected tournament&#10;&#10;Description of selected tournament&#10;Description of selected tournament&#10;Description of selected tournament&#10;" display-tooltip-when-elided="true" enable-rich-text="true" name="TournamentDescription" style="flex-shrink: 0; align-self: auto; flex-grow: 0; padding-left: 1px; white-space: normal;" />
+            </ui:VisualElement>
+            <ui:ListView style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:Button text="Button" display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>
