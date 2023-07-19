@@ -17,6 +17,7 @@ public class Campaign
         Inventory.AddRange(GameInfo.Items);
         Garage = new List<Vehicle>();
         Garage.Add(new Vehicle(GameInfo.Chassis[0]));
+        Month = 0;
     }
 
     public BattleTeam GetBattleTeam()

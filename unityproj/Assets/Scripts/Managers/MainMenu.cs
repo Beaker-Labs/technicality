@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         _uiDocument = GetComponent<UIDocument>();
-        _uiDocument.rootVisualElement.Q<Button>("PlayButton").clicked += () => PlayGame();
+        _uiDocument.rootVisualElement.Q<Button>("PlayButton").clicked += PlayGame;
+        // _uiDocument.rootVisualElement.Q<Label>("TitleText").text = "This text can be changed by code";
     }
 
     // Update is called once per frame
@@ -30,7 +31,8 @@ public class MainMenu : MonoBehaviour
         // GetComponentInParent<Canvas>().gameObject.SetActive(false);
         // destinationCanvas.SetActive(true);
         // _uiDocument.enabled = false;
-        GameInfo.Headquarters.gameObject.SetActive(true);
+        // GameInfo.Headquarters.gameObject.SetActive(true);
+        GameInfo.Headquarters.Activate();
         gameObject.SetActive(false);
     }
 }

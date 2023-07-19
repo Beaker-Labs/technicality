@@ -22,6 +22,12 @@ MonoBehaviour:
   EntryFee: 77
   Prize: 1200
   Entries:
-  - Name: Chaotic Fours
+  - Name: Winter Chaotic Fours
     Month: 1
+  - Name: Spring Chaotic Fours
+    Month: 4
+  - Name: Summer Chaotic Fours
+    Month: 7
+  - Name: Fall Chaotic Fours
+    Month: 10
   Arena: {fileID: 501503427385272462, guid: 1cf5ec6c81290d04d8e3cf79b61c4069, type: 3}

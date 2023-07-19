@@ -22,6 +22,16 @@ MonoBehaviour:
   EntryFee: 77
   Prize: 1000
   Entries:
-  - Name: Test, January
+  - Name: Test, {0}
     Month: 1
+  - Name: Test, {0}
+    Month: 3
+  - Name: Test, {0}
+    Month: 5
+  - Name: Test, {0}
+    Month: 7
+  - Name: Test, {0}
+    Month: 9
+  - Name: Test, {0}
+    Month: 11
   Arena: {fileID: 501503427385272462, guid: 1cf5ec6c81290d04d8e3cf79b61c4069, type: 3}
