@@ -1,14 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="Calendar" src="project://database/Assets/Menus/Calendar.uxml?fileID=9197481963319205126&amp;guid=0b49caf1d1f0216439cc8ac9723b6309&amp;type=3#Calendar" />
-    <Style src="project://database/Assets/Menus/TabButton.uss?fileID=7433441132597879392&amp;guid=513f880fc74fa7e45b297bc61454efa1&amp;type=3#TabButton" />
+    <Style src="project://database/Assets/Menus/Styles.uss?fileID=7433441132597879392&amp;guid=462133db0d8e1334385dae6939c2aad2&amp;type=3#Styles" />
     <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
         <ui:VisualElement name="TabBar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; flex-wrap: nowrap; height: auto; align-items: flex-start; justify-content: space-between;">
-            <ui:Button text="Calendar" display-tooltip-when-elided="true" name="Calendar" style="flex-grow: 1;" />
-            <ui:Button text="Schematic" display-tooltip-when-elided="true" name="Schematic" style="flex-grow: 1;" />
-            <ui:Button text="Ledger" display-tooltip-when-elided="true" name="Ledger" style="flex-grow: 1;" />
-            <ui:Button text="Awards" display-tooltip-when-elided="true" name="Awards" style="flex-grow: 1;" />
+            <ui:Button text="Calendar" display-tooltip-when-elided="true" name="Calendar" class="PDA" style="margin-left: 10px;" />
+            <ui:Button text="Schematics" display-tooltip-when-elided="true" name="Schematic" class="PDA" />
+            <ui:Button text="Ledger" display-tooltip-when-elided="true" name="Ledger" class="PDA" />
+            <ui:Button text="Awards" display-tooltip-when-elided="true" name="Awards" class="PDA" style="margin-right: 10px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+            <ui:VisualElement name="BlankContent" class="panel" style="flex-grow: 1; justify-content: center; align-items: center;">
+                <ui:Label tabindex="-1" text="Smashmaster PDA is off" display-tooltip-when-elided="true" style="font-size: 20px;" />
+            </ui:VisualElement>
             <ui:Instance template="Calendar" name="CalendarRoot" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
